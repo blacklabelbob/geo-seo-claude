@@ -161,3 +161,34 @@ When extracting data from existing GEO markdown reports, look for these patterns
 - Color palette: Navy primary (#1a1a2e), Blue accent (#0f3460), Coral highlight (#e94560), Green success (#00b894)
 - Each page has a header line, page numbers, "Confidential" watermark, and generation date
 - Score gauges use traffic-light colors: green (80+), blue (60-79), yellow (40-59), red (below 40)
+
+---
+
+## Deliverable Manifest (required output step)
+
+After producing any file, register it in `clients/<folder>/manifest.json` by calling
+`geo_manifest.add_deliverable(client_folder, deliverable)` (see `scripts/geo_manifest.py`).
+Then print the result of `geo_manifest.render_markdown(client_folder)` at the end of your
+final output so the caller and the library UI always see an up-to-date deliverables summary.
+
+Typical entries for this skill:
+
+```python
+from scripts.geo_manifest import add_deliverable, render_markdown, Deliverable
+from pathlib import Path
+
+client_folder = Path("clients/<folder>")
+
+add_deliverable(client_folder, Deliverable(
+    filename="GEO-CLIENT-REPORT.pdf",
+    category="deliverables",
+    file_type="PDF report",
+    title="GEO Client Report (PDF)",
+    description="Print-ready PDF version of the GEO Client Report, formatted with score gauges, data tables, and traffic-light colour coding for executive presentation.",
+    purpose="Polished leave-behind for client meetings and formal delivery. Suitable for printing or attaching to email. Complements the Markdown report with visual score displays.",
+    audience="Client",
+    created="YYYY-MM-DD",
+))
+
+print(render_markdown(client_folder))
+```

@@ -343,3 +343,34 @@ Base recommendation on GEO score:
 - Score 41-60 → Recommend **Standard** (structured monthly optimization)
 - Score 61-75 → Recommend **Basic** (maintenance + targeted improvements)
 - Score 76+ → Offer **Basic** or quarterly retainer check-in
+
+---
+
+## Deliverable Manifest (required output step)
+
+After producing any file, register it in `clients/<folder>/manifest.json` by calling
+`geo_manifest.add_deliverable(client_folder, deliverable)` (see `scripts/geo_manifest.py`).
+Then print the result of `geo_manifest.render_markdown(client_folder)` at the end of your
+final output so the caller and the library UI always see an up-to-date deliverables summary.
+
+Typical entries for this skill:
+
+```python
+from scripts.geo_manifest import add_deliverable, render_markdown, Deliverable
+from pathlib import Path
+
+client_folder = Path("clients/<folder>")
+
+add_deliverable(client_folder, Deliverable(
+    filename="GEO-PROPOSAL.md",
+    category="proposals",
+    file_type="Markdown document",
+    title="GEO Retainer Proposal",
+    description="Client-facing sales proposal presenting GEO audit findings, recommended retainer tier (Basic / Standard / Premium), pricing, scope of work, and ROI framing based on current GEO score and identified gaps.",
+    purpose="Converts a completed GEO audit into a signed retainer. Handed to the prospect after the audit debrief call. Contains all information needed for the client to make a buying decision without additional back-and-forth.",
+    audience="Prospect",
+    created="YYYY-MM-DD",
+))
+
+print(render_markdown(client_folder))
+```

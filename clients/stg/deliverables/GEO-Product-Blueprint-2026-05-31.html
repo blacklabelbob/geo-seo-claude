@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GEO Product Blueprint — STG · 2026-05-31</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+  :root{
+    --navy:#0d1117; --panel:#161b22; --line:#30363d; --blue:#0f3460; --accent:#e94560;
+    --good:#00b894; --amber:#fdcb6e; --crit:#d63031; --txt:#e6edf3; --dim:#8b949e; --link:#58a6ff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--navy);color:var(--txt);font-family:'Poppins',sans-serif;font-size:15px;line-height:1.55}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px 80px}
+  header{background:linear-gradient(135deg,#0d1117,#0f3460);border-bottom:2px solid var(--accent);padding:38px 24px 30px;margin-bottom:34px}
+  header .wrap{padding-bottom:0}
+  h1{margin:0;font-size:2rem;font-weight:800;letter-spacing:-.02em}
+  h1 span{color:var(--accent)}
+  .sub{color:var(--dim);margin-top:6px;font-size:.95rem}
+  .tag{display:inline-block;background:rgba(233,69,96,.15);color:var(--accent);border:1px solid var(--accent);
+    border-radius:20px;padding:3px 12px;font-size:.72rem;font-weight:600;letter-spacing:.04em;margin-top:14px}
+  h2{font-size:1.3rem;font-weight:700;margin:44px 0 4px;display:flex;align-items:center;gap:10px}
+  h2 .n{display:inline-flex;width:30px;height:30px;border-radius:8px;background:var(--blue);color:#fff;
+    align-items:center;justify-content:center;font-size:.95rem;font-weight:700;flex-shrink:0}
+  .lead{color:var(--dim);margin:2px 0 18px;font-size:.95rem}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:16px}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}.g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:820px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;text-align:center}
+  .kpi .v{font-size:1.9rem;font-weight:800;line-height:1}
+  .kpi .l{color:var(--dim);font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;margin-top:6px}
+  table{width:100%;border-collapse:collapse;font-size:.86rem}
+  th{text-align:left;color:var(--dim);text-transform:uppercase;font-size:.7rem;letter-spacing:.05em;
+    padding:8px 10px;border-bottom:1px solid var(--line)}
+  td{padding:9px 10px;border-bottom:1px solid #21262d;vertical-align:top}
+  .pill{display:inline-block;border-radius:20px;padding:2px 10px;font-size:.72rem;font-weight:600}
+  .pill.auto{background:rgba(0,184,148,.15);color:var(--good);border:1px solid var(--good)}
+  .pill.human{background:rgba(233,69,96,.15);color:var(--accent);border:1px solid var(--accent)}
+  .pill.mon{background:rgba(253,203,110,.12);color:var(--amber);border:1px solid var(--amber)}
+  .fork{border-left:3px solid var(--good);background:#11161d;border-radius:8px;padding:16px 18px;margin-bottom:14px}
+  .fork h4{margin:0 0 4px;font-size:1rem;color:#fff}
+  .fork .ans{color:var(--good);font-weight:600}
+  .fork .why{color:var(--dim);font-size:.86rem;margin-top:6px}
+  .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media(max-width:820px){.ladder{grid-template-columns:1fr}}
+  .rung{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;position:relative;overflow:hidden}
+  .rung:before{content:"";position:absolute;top:0;left:0;right:0;height:4px}
+  .rung.t0:before{background:var(--dim)}.rung.t1:before{background:var(--blue)}
+  .rung.t2:before{background:var(--good)}.rung.t3:before{background:var(--accent)}
+  .rung .stage{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--dim)}
+  .rung .name{font-weight:700;font-size:1.05rem;margin:3px 0}
+  .rung .price{font-size:1.5rem;font-weight:800;margin:6px 0}
+  .rung .price small{font-size:.8rem;color:var(--dim);font-weight:500}
+  .rung ul{margin:8px 0 0;padding-left:18px;font-size:.82rem;color:var(--dim)}
+  .rung li{margin-bottom:3px}
+  .src{color:var(--link);font-size:.78rem}
+  .mermaid{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center}
+  .note{font-size:.82rem;color:var(--dim);margin-top:8px}
+  ol.flow{counter-reset:s;list-style:none;padding:0;margin:0}
+  ol.flow li{position:relative;padding:10px 0 10px 44px;border-bottom:1px solid #21262d}
+  ol.flow li:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:9px;width:28px;height:28px;
+    background:var(--blue);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem}
+  ol.flow b{color:#fff}
+  .road{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:820px){.road{grid-template-columns:1fr}}
+  .ph{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .ph .w{color:var(--accent);font-size:.72rem;font-weight:700;text-transform:uppercase}
+  .ph h5{margin:4px 0 6px;font-size:.95rem}
+  .ph p{margin:0;font-size:.8rem;color:var(--dim)}
+  footer{color:var(--dim);font-size:.8rem;text-align:center;margin-top:50px;border-top:1px solid var(--line);padding-top:20px}
+  a{color:var(--link);text-decoration:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>GEO Product <span>Blueprint</span></h1>
+    <div class="sub">From audit tool → monetized AI-visibility platform · Sales Transformation Group</div>
+    <div class="tag">v1.0.0 · 2026-05-31 · Research-backed (3 parallel agents, sourced)</div>
+  </div>
+</header>
+<div class="wrap">
+
+  <!-- THE GAP -->
+  <h2><span class="n">0</span>The opening</h2>
+  <div class="lead">Why this is worth building now.</div>
+  <div class="grid g4">
+    <div class="kpi"><div class="v" style="color:var(--amber)">~90%</div><div class="l">of GEO tools only monitor</div></div>
+    <div class="kpi"><div class="v" style="color:var(--good)">3</div><div class="l">players actually remediate</div></div>
+    <div class="kpi"><div class="v" style="color:var(--link)">$844K</div><div class="l">ARR from 5% of STG base</div></div>
+    <div class="kpi"><div class="v" style="color:var(--accent)">~80%</div><div class="l">blended gross margin</div></div>
+  </div>
+  <div class="panel">
+    The market (Profound, Peec, Otterly, AthenaHQ, Bluefish) is a sea of <b>dashboards that tell a brand it's invisible and stop there.</b>
+    Only Scrunch, Relixir and Goodie touch the site at all — and none are aimed at contractors.
+    <b style="color:var(--good)">Remediation + done-for-you is the open lane.</b> The audit is the hook; the fixes are the recurring revenue; the un-automatable work is the premium.
+  </div>
+
+  <!-- 3 FORKS RESOLVED -->
+  <h2><span class="n">1</span>Your 3 decisions — now answered by evidence</h2>
+  <div class="lead">These were guesses an hour ago. They aren't anymore.</div>
+
+  <div class="fork">
+    <h4>Fork A — How do auto-fixes reach a client's live site?</h4>
+    <div class="ans">→ Edge-served from our platform + CMS push. NOT a client-side script.</div>
+    <div class="why">Hard finding: AI crawlers (GPTBot, ClaudeBot, PerplexityBot) <b>do not run JavaScript</b> — 69% of them see only raw HTML
+    (<a href="https://www.searchviu.com/en/ai-crawlers-javascript-rendering/">searchviu</a>). So a GTM/JS snippet that injects schema is <b>invisible to the exact engines we're optimizing for.</b>
+    Winner: serve <code>llms.txt</code>, <code>robots.txt</code> and JSON-LD from <b>our edge</b> (stable URL, the client adds one CNAME/redirect — works on any stack, no code access), with a WordPress-API push for in-page schema. Proven at scale by Scrunch on Akamai
+    (<a href="https://scrunch.com/platform/agent-experience/">scrunch</a>) and Cloudflare's own edge-SEO workers (<a href="https://blog.cloudflare.com/diving-into-technical-seo-cloudflare-workers/">cloudflare</a>).</div>
+  </div>
+  <div class="fork">
+    <h4>Fork B — Build now, or plan first?</h4>
+    <div class="ans">→ Phased build. Ship the near-term win now; green-light Phase 1 of the platform on approval.</div>
+    <div class="why">Reuse everything: the <b>geo skills become the engine</b> (wrapped in a tiny FastAPI), <b>n8n runs the fixes</b>, the Flask app stays as your internal cockpit until the Next.js client app reaches parity. 12-week path, 4 phases — nothing thrown away.</div>
+  </div>
+  <div class="fork">
+    <h4>Fork C — Where does the data live?</h4>
+    <div class="ans">→ New dedicated Supabase project (not Mission Control's).</div>
+    <div class="why">This holds <b>paying clients' data + logins + their site credentials.</b> It needs its own row-level-security boundary, billing and isolation — and could be spun out as its own asset later. Mixing it with internal ops data is the one thing not to do.</div>
+  </div>
+
+  <!-- AUTO vs PREMIUM -->
+  <h2><span class="n">2</span>The monetization map</h2>
+  <div class="lead">This split <i>is</i> the pricing logic: software charges recurring; humans charge premium.</div>
+  <div class="grid g2">
+    <div class="panel">
+      <div class="pill auto">AUTO-REMEDIATE · recurring SaaS</div>
+      <table style="margin-top:12px">
+        <tr><td>llms.txt generate + host (our edge)</td></tr>
+        <tr><td>robots.txt AI-crawler allow rules</td></tr>
+        <tr><td>Schema.org JSON-LD (Org, LocalBusiness, FAQ, Service, Review)</td></tr>
+        <tr><td>Meta / OpenGraph / titles</td></tr>
+        <tr><td>FAQ blocks + AI-drafted citability rewrites <span class="note">(human-approved)</span></td></tr>
+        <tr><td>Sitemaps, alt text, internal links</td></tr>
+        <tr><td style="border:0">AI-optimized HTML served to bots (Scrunch model)</td></tr>
+      </table>
+    </div>
+    <div class="panel">
+      <div class="pill human">DONE-FOR-YOU · high-ticket premium</div>
+      <table style="margin-top:12px">
+        <tr><td>Entity building: Wikipedia, Wikidata, Crunchbase</td></tr>
+        <tr><td>Backlinks + digital PR + 3rd-party citations</td></tr>
+        <tr><td>Google Knowledge Panel claim</td></tr>
+        <tr><td>Reviews (Google, BBB, Houzz) velocity program</td></tr>
+        <tr><td>Original E-E-A-T content (real author credentials)</td></tr>
+        <tr><td>Host-level fixes (e.g. Electron's 403 crawler block)</td></tr>
+        <tr><td style="border:0">YouTube presence + ongoing strategy</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="note">Correction from research: citability rewrites are <i>AI-drafted but human-approved</i> for local-service (YMYL-adjacent) clients — generation is automated, the sign-off is premium.</div>
+
+  <!-- PRICING LADDER -->
+  <h2><span class="n">3</span>The pricing ladder</h2>
+  <div class="lead">Clinic metaphor, extends CloseClinic: Diagnose → Prescription → Treatment.</div>
+  <div class="ladder">
+    <div class="rung t0">
+      <div class="stage">Hook · PVP</div>
+      <div class="name">AI Visibility Snapshot</div>
+      <div class="price">Free</div>
+      <ul><li>GEO score 0–100</li><li>"What ChatGPT says about you"</li><li>Competitor gap (named)</li><li>Top 3 critical gaps</li></ul>
+    </div>
+    <div class="rung t1">
+      <div class="stage">Diagnose</div>
+      <div class="name">Full Diagnostic</div>
+      <div class="price">$497 <small>one-time</small></div>
+      <ul><li>50-page audit</li><li>Platform-by-platform readiness</li><li>30-60-90 roadmap</li><li>45-min strategy call</li></ul>
+    </div>
+    <div class="rung t2">
+      <div class="stage">Prescription</div>
+      <div class="name">Auto-Remediate</div>
+      <div class="price">$597<small>/mo</small></div>
+      <ul><li>Software applies all auto-fixes</li><li>Monthly score-delta report</li><li>92–95% gross margin</li><li>Self-serve dashboard</li></ul>
+    </div>
+    <div class="rung t3">
+      <div class="stage">Treatment</div>
+      <div class="name">AI Authority Build</div>
+      <div class="price">$2,997<small>/mo</small></div>
+      <ul><li>Wikipedia / entity building</li><li>Digital PR + citations</li><li>E-E-A-T content</li><li>The bulk of revenue</li></ul>
+    </div>
+  </div>
+  <div class="note">Benchmarks: GEO monitoring $20–$545/mo · audits $500–$5,000 · DFY retainers $1k–$25k/mo
+  (<a href="https://thedigitalelevator.com/blog/aeo-and-geo-pricing-guide/">digitalelevator</a>,
+  <a href="https://www.webfx.com/blog/ai/generative-engine-optimization-cost/">webfx</a>). Our automation delivers the $3–8k/mo outcome at a $597 price — that's the wedge.</div>
+
+  <!-- THE UPSELL ENGINE -->
+  <h2><span class="n">4</span>The conversion engine</h2>
+  <div class="lead">The product sells the upgrade for you — no cold call after onboarding.</div>
+  <div class="grid g2">
+    <div class="panel">
+      <ol class="flow">
+        <li><b>Snapshot delivered.</b> "I asked ChatGPT who the best roofers in [City] are — your competitor showed up, you didn't."</li>
+        <li><b>Reply earned</b> (20–35% on a report this specific). Discovery call.</li>
+        <li><b>$497 diagnostic</b> = trust bridge → 60–70% convert to monthly.</li>
+        <li><b>Auto-Remediate live.</b> +8 to +15 score points in 30 days.</li>
+        <li><b>Dashboard upsell trigger</b> → see right.</li>
+        <li><b>Day-60 upgrade</b> to AI Authority Build (25–35% take it).</li>
+      </ol>
+    </div>
+    <div class="panel" style="display:flex;flex-direction:column;justify-content:center">
+      <div style="font-size:.8rem;color:var(--dim);margin-bottom:10px">WHAT THE CLIENT SEES EVERY MONTH:</div>
+      <div style="background:#11161d;border:1px solid var(--good);border-radius:8px;padding:12px 14px;margin-bottom:10px">
+        <span class="pill auto">✓ Fixed automatically</span>
+        <div style="font-size:1.4rem;font-weight:800;color:var(--good);margin-top:6px">14 things</div>
+      </div>
+      <div style="background:#11161d;border:1px solid var(--amber);border-radius:8px;padding:12px 14px">
+        <span class="pill mon">⚠ Requires our premium team</span>
+        <div style="font-size:1.4rem;font-weight:800;color:var(--amber);margin-top:6px">8 things <small style="font-size:.8rem;color:var(--dim)">· +22 pts</small></div>
+        <button style="margin-top:10px;background:var(--accent);color:#fff;border:0;border-radius:6px;padding:8px 14px;font-weight:600;font-family:inherit;cursor:pointer">Upgrade to AI Authority Build →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARCHITECTURE -->
+  <h2><span class="n">5</span>The architecture</h2>
+  <div class="lead">Next.js + Supabase + n8n + your existing geo skills. Reuse-first.</div>
+  <div class="mermaid">
+flowchart TB
+  U["Client browser<br/>Next.js 15 dashboard"] --> V["Vercel<br/>app + edge routes"]
+  V -->|"/s/slug/llms.txt<br/>schema · robots"| CR["AI crawlers<br/>GPTBot · ClaudeBot · Perplexity"]
+  V --> SB["Supabase<br/>Postgres+RLS · Auth · Storage<br/>Vault · Edge Fns · pg_cron"]
+  V --> N8["n8n cloud<br/>audit · fix · verify workflows"]
+  N8 --> GE["Python GEO engine<br/>(geo-audit / schema / llmstxt skills)<br/>FastAPI wrapper"]
+  N8 --> CS["Client site<br/>WordPress API · artifact · PR"]
+  SB --> ST["Stripe billing"]
+  N8 --> SB
+  GE --> SB
+  </div>
+  <div class="note">Multi-tenant via row-level security (org_id in the JWT). Client site credentials in Supabase Vault, never exposed to the browser.
+  The geo skills are <b>wrapped, not rebuilt</b>; the Flask app stays as internal cockpit through Phase 2.</div>
+
+  <!-- ROADMAP -->
+  <h2><span class="n">6</span>The 12-week path</h2>
+  <div class="road">
+    <div class="ph"><div class="w">Weeks 1–3</div><h5>Engine + pipeline</h5><p>Wrap geo skills in FastAPI. Stand up Supabase schema. n8n audit workflow runs in parallel with Flask — verify parity.</p></div>
+    <div class="ph"><div class="w">Weeks 3–6</div><h5>Client dashboard</h5><p>Next.js + Supabase auth. Report viewer, deliverable downloads, llms.txt edge route live. Flask retired after parity.</p></div>
+    <div class="ph"><div class="w">Weeks 6–10</div><h5>Fix layer</h5><p>One-click fixes (llms.txt → WP schema → artifact fallback). Vault for credentials. Stripe gates the fix features.</p></div>
+    <div class="ph"><div class="w">Weeks 10–12</div><h5>Prospect funnel</h5><p>Free public snapshot (gated full report), scheduled re-audits, the in-dashboard upsell trigger.</p></div>
+  </div>
+
+  <!-- NEAR TERM -->
+  <h2><span class="n">7</span>The near-term win (independent of the build)</h2>
+  <div class="panel">
+    You asked that <b>every geo skill emit its deliverables + a description of each and its purpose</b> into its output.
+    That's a small, high-value upgrade I can do now — it improves the current library immediately <i>and</i> becomes the exact data the future product's
+    "Outputs" panel + auto-fix mapping reads from. One manifest format, used in both worlds. <b style="color:var(--good)">Ready to ship on your go.</b>
+  </div>
+
+  <footer>
+    GEO Product Blueprint · STG · 2026-05-31 · v1.0.0 · Synthesized from 3 sourced research streams (competitive/mechanism, architecture, GTM).
+    Stats marked for client use require primary-source URLs before external citation.
+  </footer>
+</div>
+<script>mermaid.initialize({startOnLoad:true,theme:'dark',themeVariables:{primaryColor:'#161b22',primaryBorderColor:'#30363d',lineColor:'#58a6ff',fontFamily:'Poppins'}});</script>
+</body>
+</html>

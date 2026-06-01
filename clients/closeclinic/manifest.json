@@ -1,0 +1,42 @@
+{
+  "CloseClinic-Executive-Deck-2026-04-21.pptx": {
+    "filename": "CloseClinic-Executive-Deck-2026-04-21.pptx",
+    "category": "deliverables",
+    "file_type": "PowerPoint presentation",
+    "title": "CloseClinic Executive Deck",
+    "description": "A polished executive-facing slide deck presenting the CloseClinic brand strategy, positioning, name rationale, GEO optimization roadmap, and competitive differentiation for the AI Sales OS for Contractors category. Built from the Strategic Inputs master document.",
+    "purpose": "Enables Rob to present the full brand launch strategy to stakeholders or investors. Serves as the primary pitch artifact for the CloseClinic brand introduction and go-to-market narrative.",
+    "audience": "Client",
+    "created": "2026-04-21"
+  },
+  "CloseClinic-Master-Strategic-Report-2026-04-21.pdf": {
+    "filename": "CloseClinic-Master-Strategic-Report-2026-04-21.pdf",
+    "category": "deliverables",
+    "file_type": "PDF report",
+    "title": "CloseClinic Master Strategic Report",
+    "description": "A comprehensive written strategic report covering the CloseClinic brand launch: category creation rationale for 'AI Sales OS', positioning statement, competitive landscape analysis, GEO keyword strategy, digital presence blueprint, and 90-day execution plan.",
+    "purpose": "Serves as the reference document for all CloseClinic strategic decisions. Provides the analytical foundation behind the Executive Deck and Workbook. Used internally for planning and externally as a leave-behind for high-trust stakeholder conversations.",
+    "audience": "Client",
+    "created": "2026-04-21"
+  },
+  "CloseClinic-Master-Workbook-2026-04-21.xlsx": {
+    "filename": "CloseClinic-Master-Workbook-2026-04-21.xlsx",
+    "category": "deliverables",
+    "file_type": "Excel workbook",
+    "title": "CloseClinic Master Workbook",
+    "description": "A structured Excel workbook containing the CloseClinic brand data model: name candidate scoring matrix, GEO keyword universe with search volumes and AI citability scores, competitive gap analysis tables, platform presence checklist, and action-plan tracker.",
+    "purpose": "Provides the quantitative layer behind the strategic report. Enables filtering, sorting, and prioritization of GEO opportunities. The live working tool for tracking brand launch execution milestones.",
+    "audience": "Internal",
+    "created": "2026-04-21"
+  },
+  "STRATEGIC-INPUTS.md": {
+    "filename": "STRATEGIC-INPUTS.md",
+    "category": "inputs",
+    "file_type": "Markdown document",
+    "title": "CloseClinic Strategic Inputs",
+    "description": "The master input document that fed all CloseClinic deliverables. Contains the positioning statement, brand promise, elevator pitch, category creation rationale ('AI Sales OS'), top name candidates with scoring, target audience definition, competitive set, and key differentiators.",
+    "purpose": "Single source of truth for all brand and GEO strategy decisions. Any regeneration of the deck, report, or workbook should start here to ensure consistency. Also serves as the brief if new skills or agents need context on CloseClinic.",
+    "audience": "Internal",
+    "created": "2026-04-21"
+  }
+}

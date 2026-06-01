@@ -361,3 +361,34 @@ Date: [Date]
 - Server-rendering requirements
 - Testing with Google Rich Results Test and Schema.org Validator
 ```
+
+---
+
+## Deliverable Manifest (required output step)
+
+After producing any file, register it in `clients/<folder>/manifest.json` by calling
+`geo_manifest.add_deliverable(client_folder, deliverable)` (see `scripts/geo_manifest.py`).
+Then print the result of `geo_manifest.render_markdown(client_folder)` at the end of your
+final output so the caller and the library UI always see an up-to-date deliverables summary.
+
+Typical entries for this skill:
+
+```python
+from scripts.geo_manifest import add_deliverable, render_markdown, Deliverable
+from pathlib import Path
+
+client_folder = Path("clients/<folder>")
+
+add_deliverable(client_folder, Deliverable(
+    filename="schema-markup.html",
+    category="deliverables",
+    file_type="HTML file",
+    title="Schema Markup — JSON-LD",
+    description="Production-ready HTML file containing complete JSON-LD structured data blocks for all key site pages (Organization, FAQPage, Person, Service, BreadcrumbList, etc.), validated against Schema.org and the Google Rich Results spec.",
+    purpose="Ready-to-deploy structured data the client's developer pastes into each page's <head>. Directly improves entity recognition by Google, ChatGPT, and Perplexity, and enables rich results in Google Search.",
+    audience="Client",
+    created="YYYY-MM-DD",
+))
+
+print(render_markdown(client_folder))
+```

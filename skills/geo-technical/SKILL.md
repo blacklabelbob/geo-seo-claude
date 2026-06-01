@@ -445,3 +445,34 @@ Status: Pass = 80%+ of category points, Warn = 50-79%, Fail = <50%
 ## Detailed Findings
 [Per-category breakdown with evidence]
 ```
+
+---
+
+## Deliverable Manifest (required output step)
+
+After producing any file, register it in `clients/<folder>/manifest.json` by calling
+`geo_manifest.add_deliverable(client_folder, deliverable)` (see `scripts/geo_manifest.py`).
+Then print the result of `geo_manifest.render_markdown(client_folder)` at the end of your
+final output so the caller and the library UI always see an up-to-date deliverables summary.
+
+Typical entries for this skill:
+
+```python
+from scripts.geo_manifest import add_deliverable, render_markdown, Deliverable
+from pathlib import Path
+
+client_folder = Path("clients/<folder>")
+
+add_deliverable(client_folder, Deliverable(
+    filename="GEO-TECHNICAL-AUDIT.md",
+    category="audits",
+    file_type="Markdown document",
+    title="GEO Technical Audit",
+    description="Technical infrastructure audit covering AI crawler access (robots.txt), server-side rendering status, Core Web Vitals, HTTPS/security headers, IndexNow protocol, llms.txt presence, and page speed. Each issue is classified by severity (Critical / High / Medium / Low).",
+    purpose="Surfaces the technical blockers preventing AI systems from crawling and indexing the site. Critical and High issues must be resolved before content optimisations will take effect. Passed to the client's dev team or agency for implementation.",
+    audience="Internal",
+    created="YYYY-MM-DD",
+))
+
+print(render_markdown(client_folder))
+```

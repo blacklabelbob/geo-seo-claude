@@ -1,40 +1,34 @@
 {% extends "base.html" %}
-{% block title %}Dashboard — GEO-SEO CRM{% endblock %}
+{% block title %}GEO Report Library{% endblock %}
 
 {% block content %}
 
 <!-- KPI cards -->
 <div class="row g-3 mb-4">
-  <div class="col-6 col-md-4 col-xl-2">
+  <div class="col-6 col-md-3">
     <div class="kpi-card">
       <div class="kpi-value text-white">{{ stats.total }}</div>
-      <div class="kpi-label"><i class="bi bi-people me-1"></i>Prospect</div>
+      <div class="kpi-label"><i class="bi bi-globe me-1"></i>Websites Analyzed</div>
     </div>
   </div>
-  <div class="col-6 col-md-4 col-xl-2">
-    <div class="kpi-card">
-      <div class="kpi-value" style="color:var(--geo-good)">{{ stats.active }}</div>
-      <div class="kpi-label"><i class="bi bi-check-circle me-1"></i>Clienti Attivi</div>
-    </div>
-  </div>
-  <div class="col-6 col-md-4 col-xl-2">
-    <div class="kpi-card">
-      <div class="kpi-value" style="color:#58a6ff">{{ stats.mrr }}</div>
-      <div class="kpi-label"><i class="bi bi-currency-euro me-1"></i>MRR</div>
-    </div>
-  </div>
-  <div class="col-6 col-md-4 col-xl-2">
-    <div class="kpi-card">
-      <div class="kpi-value" style="color:var(--geo-poor)">{{ stats.pipeline }}</div>
-      <div class="kpi-label"><i class="bi bi-funnel me-1"></i>Pipeline</div>
-    </div>
-  </div>
-  <div class="col-6 col-md-4 col-xl-2">
+  <div class="col-6 col-md-3">
     <div class="kpi-card">
       <div class="kpi-value tier-{{ stats.avg_tier }} score-num" style="font-size:1.9rem">
-        {{ stats.avg_score }}<small style="font-size:1rem;color:#8b949e">/100</small>
+        {% if stats.scored %}{{ stats.avg_score }}<small style="font-size:1rem;color:#8b949e">/100</small>{% else %}—{% endif %}
       </div>
-      <div class="kpi-label"><i class="bi bi-graph-up me-1"></i>GEO Score Medio</div>
+      <div class="kpi-label"><i class="bi bi-graph-up me-1"></i>Avg GEO Score</div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="kpi-card">
+      <div class="kpi-value" style="color:#58a6ff">{{ stats.reports }}</div>
+      <div class="kpi-label"><i class="bi bi-folder2-open me-1"></i>Reports &amp; Files</div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="kpi-card">
+      <div class="kpi-value" style="color:var(--geo-poor)">{{ stats.proposals }}</div>
+      <div class="kpi-label"><i class="bi bi-file-earmark-text me-1"></i>Proposals Out</div>
     </div>
   </div>
 </div>
@@ -42,7 +36,7 @@
 <!-- Filters + sort -->
 <div class="d-flex align-items-center gap-2 mb-3 flex-wrap">
   <span class="text-secondary" style="font-size:.8rem">Status:</span>
-  <a href="/" class="btn btn-sm {% if not status_filter %}btn-primary{% else %}btn-outline-secondary{% endif %}">Tutti</a>
+  <a href="/" class="btn btn-sm {% if not status_filter %}btn-primary{% else %}btn-outline-secondary{% endif %}">All</a>
   {% for s in statuses %}
     {% set meta = s | status_meta %}
     <a href="/?status={{ s }}&sort={{ sort }}"
@@ -52,36 +46,29 @@
   {% endfor %}
 
   <div class="ms-auto d-flex align-items-center gap-2">
-    <span class="text-secondary" style="font-size:.8rem">Ordina:</span>
+    <span class="text-secondary" style="font-size:.8rem">Sort:</span>
     <a href="/?status={{ status_filter }}&sort=score"
-       class="btn btn-sm {% if sort == 'score' %}btn-primary{% else %}btn-outline-secondary{% endif %}">
-       Score
-    </a>
+       class="btn btn-sm {% if sort == 'score' %}btn-primary{% else %}btn-outline-secondary{% endif %}">Score</a>
     <a href="/?status={{ status_filter }}&sort=company"
-       class="btn btn-sm {% if sort == 'company' %}btn-primary{% else %}btn-outline-secondary{% endif %}">
-       Azienda
-    </a>
-    <a href="/?status={{ status_filter }}&sort=mrr"
-       class="btn btn-sm {% if sort == 'mrr' %}btn-primary{% else %}btn-outline-secondary{% endif %}">
-       MRR
-    </a>
+       class="btn btn-sm {% if sort == 'company' %}btn-primary{% else %}btn-outline-secondary{% endif %}">Name</a>
+    <a href="/?status={{ status_filter }}&sort=reports"
+       class="btn btn-sm {% if sort == 'reports' %}btn-primary{% else %}btn-outline-secondary{% endif %}">Files</a>
   </div>
 </div>
 
-<!-- Prospects table -->
+<!-- Websites table -->
 {% if prospects %}
 <div class="table-responsive">
   <table class="table align-middle">
     <thead>
       <tr>
-        <th>Azienda</th>
-        <th>Dominio</th>
+        <th>Website</th>
+        <th>Domain</th>
         <th>Status</th>
         <th>GEO Score</th>
-        <th>Audit</th>
-        <th class="text-end">MRR</th>
-        <th class="text-center">Proposta</th>
-        <th class="text-center">PDF</th>
+        <th>Last Run</th>
+        <th class="text-center">Files</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -91,33 +78,22 @@
       <tr onclick="location.href='/prospect/{{ p.id }}'" class="tier-{{ tier }}">
         <td class="fw-semibold text-white">{{ p.company }}</td>
         <td class="text-secondary" style="font-size:.85rem">{{ p.domain }}</td>
-        <td>
-          <span class="badge bg-{{ meta.badge }}">{{ meta.icon }} {{ meta.label }}</span>
-        </td>
+        <td><span class="badge bg-{{ meta.badge }}">{{ meta.icon }} {{ meta.label }}</span></td>
         <td>
           <div class="score-bar-wrap tier-{{ tier }}">
             <div class="score-bar">
-              <div class="score-bar-fill" style="width:{{ p.geo_score }}%"></div>
+              <div class="score-bar-fill" style="width:{{ p.geo_score or 0 }}%"></div>
             </div>
-            <span class="score-num">{{ p.geo_score }}/100</span>
+            <span class="score-num">{% if p.geo_score is not none %}{{ p.geo_score }}/100{% else %}Not scored{% endif %}</span>
           </div>
         </td>
         <td class="text-secondary" style="font-size:.83rem">{{ p.audit_date or '—' }}</td>
-        <td class="text-end fw-semibold">{{ p.monthly_value | format_eur }}</td>
         <td class="text-center">
-          {% if p.proposal_file %}
-            <i class="bi bi-file-text text-info"></i>
-          {% else %}
-            <span class="text-secondary">—</span>
-          {% endif %}
+          {% if p._report_count %}
+            <span class="badge bg-secondary">{{ p._report_count }}</span>
+          {% else %}<span class="text-secondary">—</span>{% endif %}
         </td>
-        <td class="text-center" onclick="event.stopPropagation()">
-          <a href="/prospect/{{ p.id }}/pdf"
-             class="btn btn-sm btn-outline-danger {% if not p.proposal_file %}disabled{% endif %}"
-             title="Scarica PDF">
-            <i class="bi bi-file-earmark-pdf"></i>
-          </a>
-        </td>
+        <td class="text-end"><i class="bi bi-chevron-right text-secondary"></i></td>
       </tr>
       {% endfor %}
     </tbody>
@@ -126,10 +102,8 @@
 {% else %}
 <div class="text-center py-5 text-secondary">
   <i class="bi bi-inbox display-4 d-block mb-3"></i>
-  Nessun prospect trovato.
-  {% if status_filter %}
-    <a href="/" class="d-block mt-2">Rimuovi filtro</a>
-  {% endif %}
+  No websites yet. Run a GEO audit on a site and it will appear here.
+  {% if status_filter %}<a href="/" class="d-block mt-2">Clear filter</a>{% endif %}
 </div>
 {% endif %}
 

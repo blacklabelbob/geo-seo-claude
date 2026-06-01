@@ -478,3 +478,34 @@ Generate a file called `GEO-BRAND-MENTIONS.md`:
 - Encourage leadership to post thought leadership content weekly.
 - Publish LinkedIn articles on topics where your brand has unique expertise.
 - Engage with industry discussions to increase brand visibility in professional contexts.
+
+---
+
+## Deliverable Manifest (required output step)
+
+After producing any file, register it in `clients/<folder>/manifest.json` by calling
+`geo_manifest.add_deliverable(client_folder, deliverable)` (see `scripts/geo_manifest.py`).
+Then print the result of `geo_manifest.render_markdown(client_folder)` at the end of your
+final output so the caller and the library UI always see an up-to-date deliverables summary.
+
+Typical entries for this skill:
+
+```python
+from scripts.geo_manifest import add_deliverable, render_markdown, Deliverable
+from pathlib import Path
+
+client_folder = Path("clients/<folder>")
+
+add_deliverable(client_folder, Deliverable(
+    filename="GEO-BRAND-MENTIONS.md",
+    category="audits",
+    file_type="Markdown document",
+    title="Brand Authority & Mentions Report",
+    description="Platform-by-platform brand presence audit covering Wikipedia, Wikidata, Reddit, YouTube, LinkedIn, Google Knowledge Panel, and Crunchbase. Scores brand authority (0-100) based on mention volume, sentiment, and entity recognition signals used by AI training pipelines.",
+    purpose="Establishes the brand authority baseline that AI systems rely on for entity recognition. Identifies the highest-ROI platform gaps to close first. Feeds the Brand Authority section of the main GEO report.",
+    audience="Internal",
+    created="YYYY-MM-DD",
+))
+
+print(render_markdown(client_folder))
+```

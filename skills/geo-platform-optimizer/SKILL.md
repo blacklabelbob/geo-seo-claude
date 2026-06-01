@@ -272,3 +272,34 @@ Status thresholds: Strong = 70+, Moderate = 40-69, Weak = 0-39
 ### Strategic (this quarter)
 [Actions requiring entity building, community development, or platform presence]
 ```
+
+---
+
+## Deliverable Manifest (required output step)
+
+After producing any file, register it in `clients/<folder>/manifest.json` by calling
+`geo_manifest.add_deliverable(client_folder, deliverable)` (see `scripts/geo_manifest.py`).
+Then print the result of `geo_manifest.render_markdown(client_folder)` at the end of your
+final output so the caller and the library UI always see an up-to-date deliverables summary.
+
+Typical entries for this skill:
+
+```python
+from scripts.geo_manifest import add_deliverable, render_markdown, Deliverable
+from pathlib import Path
+
+client_folder = Path("clients/<folder>")
+
+add_deliverable(client_folder, Deliverable(
+    filename="GEO-PLATFORM-OPTIMIZATION.md",
+    category="audits",
+    file_type="Markdown document",
+    title="Platform Optimisation Report",
+    description="Per-platform GEO readiness scores for Google AI Overviews, ChatGPT, Perplexity, Gemini, and Bing Copilot. Identifies crawler access status, indexing gaps, platform-specific content requirements, and entity recognition signals for each AI search platform.",
+    purpose="Maps exactly which AI platforms the site is and is not visible on, and why. Provides platform-specific quick wins and strategic initiatives. Feeds the AI Visibility Dashboard in the main GEO report.",
+    audience="Internal",
+    created="YYYY-MM-DD",
+))
+
+print(render_markdown(client_folder))
+```

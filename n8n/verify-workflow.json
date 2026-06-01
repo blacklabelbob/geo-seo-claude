@@ -1,0 +1,233 @@
+{
+  "name": "GEO Fix Verification — Re-crawl & Confirm",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * *"
+            }
+          ]
+        }
+      },
+      "id": "node_schedule",
+      "name": "Schedule: Daily 8am",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 300],
+      "notes": "Runs daily at 8am to re-verify applied fixes.\nAlso triggerable manually via the Webhook trigger below."
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "geo-verify",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "node_webhook_verify",
+      "name": "Webhook: Manual Verify Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 460],
+      "notes": "POST body: { fix_id?: string, client_id?: string }\nOptional — verify a specific fix or all pending fixes for a client."
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $env.SUPABASE_URL }}/rest/v1/fixes?status=eq.applied&select=id,fix_type,payload,audit_id,audits(url,client_id)&limit=50",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $env.SUPABASE_SERVICE_KEY }}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.SUPABASE_SERVICE_KEY }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "node_fetch_applied_fixes",
+      "name": "HTTP: Fetch Applied Fixes",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 300],
+      "notes": "Fetches all fixes with status='applied' that haven't been verified yet.\nJoins to audits table to get the original URL."
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "=",
+        "options": {}
+      },
+      "id": "node_split_fixes",
+      "name": "Split: One Item per Fix",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [720, 300],
+      "notes": "Splits the array of fixes so each one is processed individually."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.GEO_ENGINE_URL }}/run-audit",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "={{ $env.GEO_ENGINE_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "url",
+              "value": "={{ $json.audits.url }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "node_re_audit",
+      "name": "HTTP: Re-Audit Site",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [960, 300],
+      "notes": "Re-runs a full audit on the site to check if the fix is now present."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Determine if fix is verified based on re-audit result\nconst fix = $('Split: One Item per Fix').first().json;\nconst audit = $json; // re-audit result\n\nlet verified = false;\nlet reason = 'unknown';\n\nconst fixType = fix.fix_type;\n\nif (fixType === 'schema_injection') {\n  // Check if schema score improved\n  verified = (audit.scores && audit.scores.schema >= 70);\n  reason = verified ? 'Schema score >= 70' : `Schema score = ${audit.scores?.schema}`;\n} else if (fixType === 'llmstxt') {\n  // Check no llmstxt finding in critical/high\n  const llmsFindings = (audit.findings || []).filter(f => f.category === 'llmstxt' && ['critical','high'].includes(f.severity));\n  verified = llmsFindings.length === 0;\n  reason = verified ? 'No critical/high llmstxt findings' : 'llmstxt findings still present';\n} else if (fixType === 'robots') {\n  // Check crawler score\n  verified = (audit.scores && audit.scores.crawlers >= 60);\n  reason = verified ? 'Crawlers score >= 60' : `Crawlers score = ${audit.scores?.crawlers}`;\n} else if (fixType === 'meta') {\n  // Check content score improved\n  verified = (audit.scores && audit.scores.content >= 40);\n  reason = verified ? 'Content score >= 40' : `Content score = ${audit.scores?.content}`;\n} else {\n  // Default: overall score improved\n  verified = (audit.scores && audit.scores.overall >= 40);\n  reason = `Overall score = ${audit.scores?.overall}`;\n}\n\nreturn [{ json: { fix_id: fix.id, verified, reason, new_scores: audit.scores } }];"
+      },
+      "id": "node_check_fix",
+      "name": "Code: Check Fix Present",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 300],
+      "notes": "Compares re-audit scores against fix-type thresholds to determine if fix is live."
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $env.SUPABASE_URL }}/rest/v1/fixes?id=eq.{{ $json.fix_id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $env.SUPABASE_SERVICE_KEY }}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.SUPABASE_SERVICE_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={{ JSON.stringify({ status: $json.verified ? 'verified' : 'applied', verified_at: $json.verified ? new Date().toISOString() : null, verify_reason: $json.reason, new_scores: $json.new_scores }) }}",
+        "options": {}
+      },
+      "id": "node_update_verification",
+      "name": "HTTP: Update Verification Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1440, 300],
+      "notes": "Updates fix row: status='verified' if confirmed, or keeps 'applied' with reason if not."
+    }
+  ],
+  "connections": {
+    "Schedule: Daily 8am": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Fetch Applied Fixes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook: Manual Verify Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Fetch Applied Fixes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Fetch Applied Fixes": {
+      "main": [
+        [
+          {
+            "node": "Split: One Item per Fix",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split: One Item per Fix": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Re-Audit Site",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Re-Audit Site": {
+      "main": [
+        [
+          {
+            "node": "Code: Check Fix Present",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Check Fix Present": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Update Verification Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": ["geo", "verify"],
+  "triggerCount": 2,
+  "updatedAt": "2026-05-31T00:00:00.000Z",
+  "versionId": "1.0.0"
+}

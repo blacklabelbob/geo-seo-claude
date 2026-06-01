@@ -396,3 +396,34 @@ Generate **GEO-CLIENT-REPORT.md** using the complete template above, filled with
 - Ready to send to a client without editing
 - Self-contained (no references to other report files — all relevant data is included)
 - Printable and presentable (clean markdown formatting)
+
+---
+
+## Deliverable Manifest (required output step)
+
+After producing any file, register it in `clients/<folder>/manifest.json` by calling
+`geo_manifest.add_deliverable(client_folder, deliverable)` (see `scripts/geo_manifest.py`).
+Then print the result of `geo_manifest.render_markdown(client_folder)` at the end of your
+final output so the caller and the library UI always see an up-to-date deliverables summary.
+
+Typical entries for this skill:
+
+```python
+from scripts.geo_manifest import add_deliverable, render_markdown, Deliverable
+from pathlib import Path
+
+client_folder = Path("clients/<folder>")
+
+add_deliverable(client_folder, Deliverable(
+    filename="GEO-CLIENT-REPORT.md",
+    category="reports",
+    file_type="Markdown document",
+    title="GEO Client Report",
+    description="Aggregated GEO readiness report combining all audit sub-scores into a single client-facing document. Covers AI Visibility Dashboard, crawler access, brand authority, citability, schema, and a prioritised action plan with dollar-value framing.",
+    purpose="Primary deliverable to send to the client after a GEO audit. Translates technical findings into business impact and clear next steps. Also used as the input document for the PDF report and sales proposal.",
+    audience="Client",
+    created="YYYY-MM-DD",
+))
+
+print(render_markdown(client_folder))
+```

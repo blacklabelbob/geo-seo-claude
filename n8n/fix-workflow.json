@@ -1,0 +1,304 @@
+{
+  "name": "GEO Fix — Dispatch & Track",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "geo-fix",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "node_webhook_fix",
+      "name": "Webhook: Apply Fix",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "notes": "POST body: { fix_id: string, fix_type: string, mechanism: string, payload: object, client_id: string }\nTriggered by platform when user clicks 'Apply Fix'."
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.mechanism }}",
+                    "rightValue": "edge",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "edge"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.mechanism }}",
+                    "rightValue": "api_push",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "api_push"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.mechanism }}",
+                    "rightValue": "artifact",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "artifact"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "node_switch_mechanism",
+      "name": "Switch: Route by Mechanism",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [480, 300],
+      "notes": "Routes fix dispatch based on mechanism field:\n- edge: inject via Vercel/Cloudflare edge middleware\n- api_push: push to CMS/headless CMS API\n- artifact: generate downloadable artifact for manual deploy"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.EDGE_DEPLOY_WEBHOOK_URL }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.EDGE_DEPLOY_TOKEN }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={{ JSON.stringify({ fix_type: $('Webhook: Apply Fix').first().json.body.fix_type, payload: $('Webhook: Apply Fix').first().json.body.payload }) }}",
+        "options": {}
+      },
+      "id": "node_edge_deploy",
+      "name": "HTTP: Deploy via Edge",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 160],
+      "notes": "Sends fix payload to Vercel/Cloudflare edge function deploy hook.\nSet EDGE_DEPLOY_WEBHOOK_URL to your edge deploy endpoint.\nPayload contains the JSON-LD or meta tag to inject."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.CMS_API_URL }}/api/fix",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.CMS_API_TOKEN }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={{ JSON.stringify($('Webhook: Apply Fix').first().json.body.payload) }}",
+        "options": {}
+      },
+      "id": "node_api_push",
+      "name": "HTTP: Push to CMS API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 300],
+      "notes": "Pushes fix payload to headless CMS (Contentful, Sanity, etc).\nSet CMS_API_URL and CMS_API_TOKEN."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Generate artifact (downloadable file content)\nconst body = $('Webhook: Apply Fix').first().json.body;\nconst payload = body.payload;\nlet content = '';\nif (body.fix_type === 'llmstxt') {\n  content = payload.content || '';\n} else if (body.fix_type === 'robots') {\n  content = payload.robots_txt_content || '';\n} else {\n  content = JSON.stringify(payload, null, 2);\n}\nreturn [{ json: { artifact_content: content, fix_type: body.fix_type, filename: body.fix_type + '-fix-' + Date.now() + '.txt' } }];"
+      },
+      "id": "node_artifact",
+      "name": "Code: Generate Artifact",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 460],
+      "notes": "Creates artifact content string for manual deployment (llms.txt, robots.txt, etc)."
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $env.SUPABASE_URL }}/rest/v1/fixes?id=eq.{{ $('Webhook: Apply Fix').first().json.body.fix_id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $env.SUPABASE_SERVICE_KEY }}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.SUPABASE_SERVICE_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={ \"status\": \"applied\", \"applied_at\": \"{{ new Date().toISOString() }}\" }",
+        "options": {}
+      },
+      "id": "node_update_status",
+      "name": "HTTP: Update Fix Status in Supabase",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [960, 300],
+      "notes": "PATCHes the fix row in Supabase to status='applied'."
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"success\": true, \"fix_id\": \"{{ $('Webhook: Apply Fix').first().json.body.fix_id }}\", \"status\": \"applied\" }"
+      },
+      "id": "node_respond_fix",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1200, 300]
+    }
+  ],
+  "connections": {
+    "Webhook: Apply Fix": {
+      "main": [
+        [
+          {
+            "node": "Switch: Route by Mechanism",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch: Route by Mechanism": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Deploy via Edge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP: Push to CMS API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code: Generate Artifact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Deploy via Edge": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Update Fix Status in Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Push to CMS API": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Update Fix Status in Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Generate Artifact": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Update Fix Status in Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Update Fix Status in Supabase": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": ["geo", "fix"],
+  "triggerCount": 1,
+  "updatedAt": "2026-05-31T00:00:00.000Z",
+  "versionId": "1.0.0"
+}

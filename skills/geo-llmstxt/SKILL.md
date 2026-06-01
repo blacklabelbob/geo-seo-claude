@@ -430,3 +430,34 @@ Output the complete `llms.txt` file content, ready to be saved to the site's roo
 8. **Coordinate with robots.txt.** Ensure pages listed in llms.txt are not blocked in robots.txt for AI crawlers.
 9. **Mirror your site structure.** Section names in llms.txt should roughly correspond to your main navigation categories.
 10. **Avoid sensitive pages.** Do not include internal tools, admin panels, or pages with sensitive information.
+
+---
+
+## Deliverable Manifest (required output step)
+
+After producing any file, register it in `clients/<folder>/manifest.json` by calling
+`geo_manifest.add_deliverable(client_folder, deliverable)` (see `scripts/geo_manifest.py`).
+Then print the result of `geo_manifest.render_markdown(client_folder)` at the end of your
+final output so the caller and the library UI always see an up-to-date deliverables summary.
+
+Typical entries for this skill:
+
+```python
+from scripts.geo_manifest import add_deliverable, render_markdown, Deliverable
+from pathlib import Path
+
+client_folder = Path("clients/<folder>")
+
+add_deliverable(client_folder, Deliverable(
+    filename="llms.txt",
+    category="deliverables",
+    file_type="Text file",
+    title="llms.txt — AI Content Guide",
+    description="Structured plain-text file placed at the site root that guides AI crawlers (ChatGPT, Perplexity, Claude, Gemini) to the site's most important and citable content, organised by section with short descriptions.",
+    purpose="Tells AI systems what the site covers and which pages to prioritise for citation. Analogous to a sitemap but written for LLMs. Deploy to https://<domain>/llms.txt to improve AI indexing speed and citation accuracy.",
+    audience="Client",
+    created="YYYY-MM-DD",
+))
+
+print(render_markdown(client_folder))
+```

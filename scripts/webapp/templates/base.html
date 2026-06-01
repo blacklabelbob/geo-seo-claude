@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="it" data-bs-theme="dark">
+<html lang="en" data-bs-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}GEO-SEO CRM{% endblock %}</title>
+  <title>{% block title %}GEO Report Library{% endblock %}</title>
 
   <!-- Bootstrap 5 dark -->
   <link rel="stylesheet"
@@ -23,13 +23,15 @@
       --geo-moderate: #0984e3;
       --geo-poor:     #fdcb6e;
       --geo-critical: #d63031;
+      --geo-none:     #6c757d;
     }
     body { background: #0d1117; font-size: .92rem; }
 
     /* Navbar */
     .navbar { background: var(--geo-navy) !important; border-bottom: 2px solid var(--geo-blue); }
-    .navbar-brand { font-weight: 700; letter-spacing: .05em; color: #fff !important; }
+    .navbar-brand { font-weight: 700; letter-spacing: .04em; color: #fff !important; }
     .navbar-brand span { color: var(--geo-accent); }
+    .navbar-brand small { font-weight: 400; letter-spacing: 0; color: #8b949e; }
 
     /* KPI cards */
     .kpi-card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 1.2rem 1.5rem; }
@@ -40,7 +42,7 @@
     .score-bar-wrap { display: flex; align-items: center; gap: .6rem; min-width: 160px; }
     .score-bar { height: 8px; border-radius: 4px; background: #30363d; flex: 1; overflow: hidden; }
     .score-bar-fill { height: 100%; border-radius: 4px; transition: width .4s ease; }
-    .score-num { font-size: .8rem; font-weight: 600; white-space: nowrap; min-width: 44px; }
+    .score-num { font-size: .8rem; font-weight: 600; white-space: nowrap; min-width: 60px; }
     .tier-good     .score-bar-fill { background: var(--geo-good); }
     .tier-good     .score-num      { color: var(--geo-good); }
     .tier-moderate .score-bar-fill { background: var(--geo-moderate); }
@@ -49,6 +51,8 @@
     .tier-poor     .score-num      { color: var(--geo-poor); }
     .tier-critical .score-bar-fill { background: var(--geo-critical); }
     .tier-critical .score-num      { color: var(--geo-critical); }
+    .tier-none     .score-bar-fill { background: var(--geo-none); }
+    .tier-none     .score-num      { color: var(--geo-none); }
 
     /* Score circle (detail page) */
     .score-circle { width: 110px; height: 110px; border-radius: 50%; display: flex; flex-direction: column;
@@ -59,6 +63,7 @@
     .score-circle.tier-moderate { border-color: var(--geo-moderate); color: var(--geo-moderate); }
     .score-circle.tier-poor     { border-color: var(--geo-poor);     color: var(--geo-poor); }
     .score-circle.tier-critical { border-color: var(--geo-critical); color: var(--geo-critical); }
+    .score-circle.tier-none     { border-color: var(--geo-none);     color: var(--geo-none); }
 
     /* Table */
     .table { --bs-table-bg: transparent; }
@@ -73,17 +78,34 @@
     .note-date { font-size: .74rem; color: #8b949e; }
     .note-text { font-size: .88rem; margin: .2rem 0 0; }
 
+    /* Output / file cards */
+    .cat-block { margin-bottom: 1.4rem; }
+    .cat-head { display:flex; align-items:baseline; gap:.6rem; margin-bottom:.6rem; }
+    .cat-head h6 { margin:0; color:#fff; font-size:.95rem; font-weight:600; }
+    .cat-head .blurb { color:#8b949e; font-size:.8rem; }
+    .file-row { background:#161b22; border:1px solid #30363d; border-radius:10px;
+      padding:.85rem 1rem; margin-bottom:.55rem; display:flex; align-items:flex-start; gap:.85rem; }
+    .file-row .fi { font-size:1.5rem; color:#58a6ff; line-height:1; margin-top:.1rem; }
+    .file-row .fname { color:#fff; font-weight:600; font-size:.9rem; word-break:break-all; }
+    .file-row .fmeta { color:#8b949e; font-size:.76rem; }
+    .file-row .fdesc { color:#c9d1d9; font-size:.84rem; margin-top:.25rem; }
+
     /* Misc */
-    .file-link { font-size: .82rem; font-family: monospace; color: #58a6ff; }
     .badge { font-size: .75rem; }
     a { text-decoration: none; }
+    .callout { border-left:3px solid var(--geo-blue); background:#11161d; border-radius:6px;
+      padding:.8rem 1rem; }
+    .callout.next { border-left-color: var(--geo-good); }
   </style>
 </head>
 <body>
 
 <nav class="navbar navbar-dark mb-4">
   <div class="container-fluid px-4">
-    <a class="navbar-brand" href="/">GEO<span>-SEO</span> CRM</a>
+    <a class="navbar-brand" href="/">
+      GEO<span>·</span>Report Library
+      <small class="ms-2 d-none d-md-inline">Websites you've analyzed — reports, audits &amp; deliverables</small>
+    </a>
     <span class="text-secondary" style="font-size:.8rem;">
       <i class="bi bi-clock me-1"></i>{{ now }}
     </span>

@@ -335,3 +335,34 @@ Generate a file called `GEO-AUDIT-REPORT.md` with the following structure:
 - Extra weight on: Case studies (citability), expertise demonstration, thought leadership
 - Check for: Portfolio schema, team credentials, industry-specific expertise signals
 - Key schema: Organization, Service, Person (team), Review
+
+---
+
+## Deliverable Manifest (required output step)
+
+After producing any file, register it in `clients/<folder>/manifest.json` by calling
+`geo_manifest.add_deliverable(client_folder, deliverable)` (see `scripts/geo_manifest.py`).
+Then print the result of `geo_manifest.render_markdown(client_folder)` at the end of your
+final output so the caller and the library UI always see an up-to-date deliverables summary.
+
+Typical entries for this skill:
+
+```python
+from scripts.geo_manifest import add_deliverable, render_markdown, Deliverable
+from pathlib import Path
+
+client_folder = Path("clients/<folder>")
+
+add_deliverable(client_folder, Deliverable(
+    filename="GEO-AUDIT-REPORT.md",
+    category="audits",
+    file_type="Markdown document",
+    title="GEO Audit Report",
+    description="Full GEO+SEO audit covering AI citability, brand authority, content E-E-A-T, technical infrastructure, schema markup, and platform optimisation. Includes composite GEO Score (0-100) with per-category breakdown.",
+    purpose="Baseline measurement of a site's AI-search visibility. Feeds the GEO report, proposal, and 30-day action plan. Used internally to prioritise fixes and presented to the client as the diagnostic foundation.",
+    audience="Internal",
+    created="YYYY-MM-DD",  # pass today's date
+))
+
+print(render_markdown(client_folder))
+```

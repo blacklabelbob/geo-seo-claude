@@ -1,0 +1,52 @@
+{
+  "stg-keyword-universe-audit.md": {
+    "filename": "stg-keyword-universe-audit.md",
+    "category": "audits",
+    "file_type": "Markdown document",
+    "title": "STG Keyword Universe Audit",
+    "description": "A comprehensive search landscape analysis covering 45 target queries across 6 categories (direct service, problem-aware, role-specific, comparison, local, and brand). Documents STG's organic visibility (2 of 45 queries ranked), maps the competitive set dominating each category (ServiceTitan, HookAgency, Roof Sales Mastery, The Roof Strategist), and identifies blue-ocean keyword clusters where competition is thinnest.",
+    "purpose": "Foundation document for all STG content and GEO strategy. Identifies the highest-ROI keyword clusters to target, shows where STG is invisible vs. ranked, and feeds the content gap analysis and page rewrite briefs. Used internally to prioritize the content roadmap.",
+    "audience": "Internal",
+    "created": "2026-03-20"
+  },
+  "content-gap-analysis-2026-03-20.md": {
+    "filename": "content-gap-analysis-2026-03-20.md",
+    "category": "reports",
+    "file_type": "Markdown document",
+    "title": "STG Content Gap Analysis",
+    "description": "A Bain-style competitive gap analysis across 50+ search queries identifying 20 blue-ocean content opportunities for STG. Benchmarks primary competitors (The Roof Strategist, Roof Sales Mastery, FPG) across topic ownership and reveals the core strategic gap: every competitor teaches reps how to sell, but nobody owns the 'how to build and scale a contractor sales organization' category that STG is positioned for.",
+    "purpose": "Translates the keyword audit into actionable content briefs. Defines STG's content moat and the 20 specific articles/pages to create. Used to brief copywriters and prioritize the editorial calendar for the next 90 days.",
+    "audience": "Internal",
+    "created": "2026-03-20"
+  },
+  "stg-page-rewrites-intros-faqs.md": {
+    "filename": "stg-page-rewrites-intros-faqs.md",
+    "category": "deliverables",
+    "file_type": "Markdown document",
+    "title": "STG Website Rewrite: Intros + FAQ Schema",
+    "description": "Copy-paste-ready replacement introductions and FAQ schema content for key STG website pages (services, about, individual program pages). Each FAQ answer is structured for AI citability — self-contained, fact-dense, and formatted to be extracted by Google AI Overviews, ChatGPT, and Perplexity. Includes documented client outcomes and specific revenue figures.",
+    "purpose": "Enables STG's web team or agency to deploy GEO-optimized copy immediately without additional writing. FAQ content also doubles as JSON-LD FAQPage schema source material. Directly raises AI citability scores for the pages it covers.",
+    "audience": "Client",
+    "created": "2026-03-20"
+  },
+  "stg-schema-markup.html": {
+    "filename": "stg-schema-markup.html",
+    "category": "deliverables",
+    "file_type": "HTML file",
+    "title": "STG Schema Markup — Complete JSON-LD",
+    "description": "A production-ready HTML file containing complete JSON-LD structured data blocks for all STG website pages: ProfessionalService + OfferCatalog on the homepage, FAQPage schema for service pages, Person schema for Ryan Groth, and sameAs entity links to LinkedIn, Google Business Profile, and other authority platforms.",
+    "purpose": "Ready-to-deploy structured data that STG's developer or agency can paste directly into each page's <head>. Implements the schema types most critical for AI engine recognition (Organization, ProfessionalService, FAQPage, Person). Expected impact: improved entity recognition across Google, ChatGPT, and Perplexity.",
+    "audience": "Client",
+    "created": "2026-03-20"
+  },
+  "GEO-Product-Blueprint-2026-05-31.html": {
+    "filename": "GEO-Product-Blueprint-2026-05-31.html",
+    "category": "deliverables",
+    "file_type": "HTML file",
+    "title": "GEO Product Blueprint",
+    "description": "A research-backed product strategy document presented as a styled interactive HTML report. Defines the architecture and monetization model for turning the GEO audit tool into a commercial AI-visibility SaaS platform. Covers the Diagnose→Prescription→Treatment pricing ladder ($497 / $597/mo / $2,997/mo), the in-product upsell engine, Next.js + Supabase + n8n technical architecture, and a 12-week build roadmap. Synthesized from three sourced research streams.",
+    "purpose": "Serves as the product specification and business case for the GEO platform build. Used internally to align on architecture decisions (edge-served fixes vs. phased build vs. dedicated Supabase), define the auto-vs-premium monetization boundary, and sequence the 12-week development roadmap.",
+    "audience": "Internal",
+    "created": "2026-05-31"
+  }
+}

@@ -342,3 +342,34 @@ Date: [Date]
 ### Author/E-E-A-T Improvements
 [Specific steps to strengthen E-E-A-T signals]
 ```
+
+---
+
+## Deliverable Manifest (required output step)
+
+After producing any file, register it in `clients/<folder>/manifest.json` by calling
+`geo_manifest.add_deliverable(client_folder, deliverable)` (see `scripts/geo_manifest.py`).
+Then print the result of `geo_manifest.render_markdown(client_folder)` at the end of your
+final output so the caller and the library UI always see an up-to-date deliverables summary.
+
+Typical entries for this skill:
+
+```python
+from scripts.geo_manifest import add_deliverable, render_markdown, Deliverable
+from pathlib import Path
+
+client_folder = Path("clients/<folder>")
+
+add_deliverable(client_folder, Deliverable(
+    filename="GEO-CONTENT-ANALYSIS.md",
+    category="audits",
+    file_type="Markdown document",
+    title="Content E-E-A-T Analysis",
+    description="Content quality audit evaluating Experience, Expertise, Authoritativeness, and Trustworthiness signals across the site's key pages. Covers author attribution, credentials, source citations, content freshness, depth, originality, and topical authority coverage.",
+    purpose="Identifies the content gaps and E-E-A-T deficiencies that reduce AI citation probability. Produces a prioritised list of content quick wins, gap articles to create, and author/credential improvements. Feeds the Content section of the main GEO report.",
+    audience="Internal",
+    created="YYYY-MM-DD",
+))
+
+print(render_markdown(client_folder))
+```

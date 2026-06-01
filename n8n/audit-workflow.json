@@ -1,0 +1,214 @@
+{
+  "name": "GEO Audit — Run & Persist",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "geo-audit",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "node_webhook_trigger",
+      "name": "Webhook: Start Audit",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "notes": "POST body: { url: string, client_id?: string }\nAny caller (n8n schedule, platform, Slack) can trigger this."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.GEO_ENGINE_URL }}/run-audit",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "={{ $env.GEO_ENGINE_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "url",
+              "value": "={{ $json.body.url }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "node_run_audit",
+      "name": "HTTP: Run GEO Audit",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 300],
+      "notes": "Calls engine /run-audit. Returns audit result matching canonical schema."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build Supabase-ready payload\nconst audit = $json;\nconst clientId = $('Webhook: Start Audit').first().json.body.client_id || null;\n\nreturn [\n  {\n    json: {\n      client_id: clientId,\n      url: $('Webhook: Start Audit').first().json.body.url,\n      status: audit.status,\n      scores: audit.scores,\n      findings: JSON.stringify(audit.findings),\n      fixes: JSON.stringify(audit.fixes),\n      created_at: new Date().toISOString()\n    }\n  }\n];"
+      },
+      "id": "node_shape_record",
+      "name": "Code: Shape DB Record",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 300],
+      "notes": "Flattens audit result into a single Supabase row."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SUPABASE_URL }}/rest/v1/audits",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $env.SUPABASE_SERVICE_KEY }}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.SUPABASE_SERVICE_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "node_supabase_insert",
+      "name": "HTTP: Insert Audit to Supabase",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [960, 300],
+      "notes": "POSTs to Supabase REST API /rest/v1/audits table.\nReplace SUPABASE_URL with your project URL, e.g. https://xnbhfplcthrkjycvlwip.supabase.co"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SUPABASE_URL }}/rest/v1/findings",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $env.SUPABASE_SERVICE_KEY }}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.SUPABASE_SERVICE_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={{ JSON.stringify($('HTTP: Run GEO Audit').first().json.findings.map(f => ({ ...f, audit_id: $('HTTP: Insert Audit to Supabase').first().json[0].id }))) }}",
+        "options": {}
+      },
+      "id": "node_supabase_findings",
+      "name": "HTTP: Insert Findings to Supabase",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [960, 460],
+      "notes": "Bulk-inserts findings array to /rest/v1/findings, linked by audit_id."
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: true, audit_id: $('HTTP: Insert Audit to Supabase').first().json[0].id, scores: $('HTTP: Run GEO Audit').first().json.scores }) }}"
+      },
+      "id": "node_respond",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1200, 300]
+    }
+  ],
+  "connections": {
+    "Webhook: Start Audit": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Run GEO Audit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Run GEO Audit": {
+      "main": [
+        [
+          {
+            "node": "Code: Shape DB Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Shape DB Record": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Insert Audit to Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Insert Audit to Supabase": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Insert Findings to Supabase",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": ["geo", "audit"],
+  "triggerCount": 1,
+  "updatedAt": "2026-05-31T00:00:00.000Z",
+  "versionId": "1.0.0"
+}

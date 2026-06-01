@@ -317,3 +317,34 @@ Generate a file called `GEO-CITABILITY-SCORE.md`:
 | **Claude** | Prefers well-structured, comprehensive passages. Values nuance and accuracy over brevity. |
 | **Gemini (AI Overviews)** | Prefers concise answer blocks (40-60 words). Values content already ranking in top 10 organic results. |
 | **Copilot (Bing)** | Similar to Gemini. Prefers passages from high-authority domains with clear factual claims. |
+
+---
+
+## Deliverable Manifest (required output step)
+
+After producing any file, register it in `clients/<folder>/manifest.json` by calling
+`geo_manifest.add_deliverable(client_folder, deliverable)` (see `scripts/geo_manifest.py`).
+Then print the result of `geo_manifest.render_markdown(client_folder)` at the end of your
+final output so the caller and the library UI always see an up-to-date deliverables summary.
+
+Typical entries for this skill:
+
+```python
+from scripts.geo_manifest import add_deliverable, render_markdown, Deliverable
+from pathlib import Path
+
+client_folder = Path("clients/<folder>")
+
+add_deliverable(client_folder, Deliverable(
+    filename="GEO-CITABILITY-REPORT.md",
+    category="audits",
+    file_type="Markdown document",
+    title="AI Citability Report",
+    description="Per-page citability scores (0-100) for each analysed URL, with passage-level breakdown showing self-containment, statistical density, and answer-block quality. Includes top 5 most and least citable pages with specific rewrite recommendations.",
+    purpose="Identifies exactly which pages and passages are most likely to be quoted by AI systems, and provides rewrite briefs to improve the lowest-scoring content. Used internally to prioritise copywriting work and fed into the main GEO report.",
+    audience="Internal",
+    created="YYYY-MM-DD",
+))
+
+print(render_markdown(client_folder))
+```
