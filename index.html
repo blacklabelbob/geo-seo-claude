@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Visibility Report — CG Roofing &amp; Waterproofing, LLC</title>
+<meta name="description" content="AI Search Visibility Report prepared for Caleb Green, CG Roofing & Waterproofing, LLC — by Robert Acheson, AI Voice Tech.">
+<style>
+  :root{
+    --bg:#0d1117; --card:#161b22; --border:#30363d; --hover:#1c2128;
+    --navy:#1a1a2e; --blue:#0f3460; --accent:#e94560;
+    --good:#00b894; --moderate:#0984e3; --poor:#fdcb6e; --critical:#d63031;
+    --text:#e6edf3; --muted:#8b949e; --link:#58a6ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* Top bar */
+  .topbar{background:var(--navy);border-bottom:2px solid var(--blue);padding:.7rem 0;position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+  .brand{font-weight:700;letter-spacing:.04em;color:#fff;font-size:.95rem}
+  .brand a{color:#fff}
+  .brand .spark{color:var(--accent)}
+  .prepared{font-size:.8rem;color:var(--muted)}
+  .prepared b{color:var(--text);font-weight:600}
+
+  /* Hero */
+  .hero{padding:3.5rem 0 2.5rem;display:flex;gap:2.5rem;align-items:center;flex-wrap:wrap}
+  .hero-text{flex:1 1 480px}
+  .eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:.8rem}
+  h1{font-size:2.1rem;line-height:1.25;font-weight:800;margin-bottom:1rem}
+  h1 .hl{color:var(--accent)}
+  .lede{color:var(--muted);font-size:1.05rem;max-width:560px}
+  .lede b{color:var(--text)}
+  .cta-row{margin-top:1.6rem;display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:.7rem 1.3rem;border-radius:8px;font-weight:600;font-size:.92rem;border:1px solid var(--border)}
+  .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn-primary:hover{background:#d63550;text-decoration:none}
+  .btn-ghost{color:var(--text)}
+  .btn-ghost:hover{background:var(--hover);text-decoration:none}
+
+  .score-circle{width:170px;height:170px;border-radius:50%;border:6px solid var(--critical);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--critical);flex:0 0 auto;margin:0 auto}
+  .score-circle .big{font-size:3rem;font-weight:800;line-height:1}
+  .score-circle .sub{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:.3rem;text-align:center}
+  .score-wrap{text-align:center}
+  .score-tier{display:inline-block;margin-top:.8rem;background:rgba(214,48,49,.15);color:var(--critical);border:1px solid var(--critical);font-size:.75rem;font-weight:700;letter-spacing:.08em;padding:.25rem .8rem;border-radius:20px;text-transform:uppercase}
+
+  /* Challenge box */
+  .challenge{background:linear-gradient(135deg,#103c33,#0e4a3c);border:1px solid #1e6e58;border-radius:12px;padding:1.6rem 1.8rem;margin-top:2.2rem}
+  .challenge h3{color:#5eead4;font-size:1.05rem;margin-bottom:.5rem}
+  .challenge p{color:#c8e6dd;font-size:.95rem;max-width:760px}
+  .challenge .prompt{display:inline-block;background:#0d1117;border:1px solid #1e6e58;border-radius:8px;padding:.5rem .9rem;font-family:ui-monospace,Menlo,monospace;font-size:.88rem;color:#e6edf3;margin:.6rem 0}
+
+  /* Sections */
+  section{padding:2.6rem 0;border-top:1px solid #21262d}
+  h2{font-size:1.45rem;font-weight:700;margin-bottom:.4rem}
+  .sub-h{color:var(--muted);margin-bottom:1.6rem;max-width:720px}
+  .sub-h b{color:var(--text)}
+
+  /* Funnel */
+  .funnel-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.8rem;max-width:780px;margin:0 auto}
+  .funnel-title{text-align:center;font-weight:700;font-size:1.02rem;margin-bottom:1.2rem}
+  .layer{margin:0 auto .45rem;border-radius:7px;padding:.55rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-size:.88rem}
+  .layer .lvl{font-weight:700;white-space:nowrap}
+  .layer .note{font-size:.76rem;opacity:.85;text-align:right}
+  .ai-zone .layer{background:linear-gradient(90deg,#103c33,#0e4a3c);border:1px solid #1e6e58}
+  .ai-zone .layer .lvl{color:#5eead4}
+  .trad-zone .layer{background:linear-gradient(90deg,#3a2e10,#4a3c12);border:1px solid #8a6d1e}
+  .trad-zone .layer .lvl{color:#fde68a}
+  .zone-label{display:flex;align-items:center;gap:.6rem;margin:1.1rem 0 .6rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+  .zone-label:before,.zone-label:after{content:"";flex:1;height:1px;background:var(--border)}
+  .handoff{text-align:center;color:var(--muted);font-size:.76rem;margin:.6rem 0;letter-spacing:.06em}
+  .funnel-note{margin-top:1.2rem;font-size:.95rem;color:var(--text);border-left:3px solid var(--accent);padding-left:.9rem;font-weight:600}
+  .funnel-note small{display:block;font-weight:400;color:var(--muted);font-size:.82rem;margin-top:.3rem}
+  .w100{width:100%}.w92{width:92%}.w84{width:84%}.w76{width:76%}.w68{width:68%}.w60{width:60%}.w52{width:52%}
+
+  /* Stats grid */
+  .grid{display:grid;gap:1rem}
+  .grid-3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.4rem}
+  .stat .v{font-size:1.7rem;font-weight:800;color:var(--accent);line-height:1.1}
+  .stat .l{font-size:.8rem;color:var(--muted);margin-top:.4rem}
+  .stat.green .v{color:var(--good)}
+
+  /* Score bars */
+  .cat{display:flex;align-items:center;gap:1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.6rem;flex-wrap:wrap}
+  .cat .name{flex:0 0 300px;font-size:.92rem;font-weight:600}
+  .cat .name small{display:block;color:var(--muted);font-weight:400;font-size:.72rem}
+  .bar{flex:1 1 200px;height:9px;border-radius:5px;background:var(--border);overflow:hidden;min-width:140px}
+  .bar i{display:block;height:100%;border-radius:5px}
+  .cat .num{flex:0 0 70px;text-align:right;font-weight:700;font-size:.9rem}
+  .t-critical i{background:var(--critical)} .t-critical .num{color:var(--critical)}
+  .t-poor i{background:var(--poor)} .t-poor .num{color:var(--poor)}
+  .t-moderate i{background:var(--moderate)} .t-moderate .num{color:var(--moderate)}
+  .callout{background:rgba(214,48,49,.08);border:1px solid rgba(214,48,49,.4);border-radius:10px;padding:.9rem 1.2rem;font-size:.92rem;margin-top:1rem}
+  .callout b{color:var(--critical)}
+
+  /* Assets */
+  .asset{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;display:flex;gap:.9rem;align-items:flex-start}
+  .asset:hover{background:var(--hover)}
+  .asset .ico{font-size:1.3rem;line-height:1.3}
+  .asset h3{font-size:.95rem;margin-bottom:.15rem}
+  .asset h3 small{color:var(--muted);font-weight:400;font-size:.74rem}
+  .asset p{font-size:.8rem;color:var(--muted)}
+  .asset .open{font-size:.78rem;font-weight:600;white-space:nowrap;margin-left:auto;align-self:center}
+  .grid-2{grid-template-columns:repeat(auto-fit,minmax(420px,1fr))}
+  .file-guide{background:var(--card);border:1px dashed var(--border);border-radius:10px;padding:.9rem 1.2rem;font-size:.9rem;color:var(--muted);margin-bottom:1.2rem}
+  .file-guide b{color:var(--text)}
+
+  /* proof list */
+  .proof li{list-style:none;padding:.45rem 0 .45rem 1.6rem;position:relative;font-size:.92rem}
+  .proof li:before{content:"✓";position:absolute;left:0;color:var(--good);font-weight:700}
+
+  /* Opportunity */
+  .opp{background:linear-gradient(135deg,#161b22,#1a2230);border:1px solid var(--border);border-radius:12px;padding:2rem;display:flex;gap:2rem;align-items:center;flex-wrap:wrap}
+  .opp .nums{flex:1 1 300px}
+  .opp .v{font-size:2.4rem;font-weight:800;color:var(--good)}
+  .opp .l{color:var(--muted);font-size:.85rem}
+  .opp ul{margin:1rem 0 0 1.1rem;color:var(--muted);font-size:.88rem}
+  .opp ul li{margin-bottom:.4rem}
+  .opp ul b{color:var(--text)}
+  .discount{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.4rem;margin-top:1.2rem;font-size:.95rem}
+  .discount b{color:var(--good)}
+
+  /* Exclusivity */
+  .exclusive{border:1px solid var(--accent);background:rgba(233,69,96,.06);border-radius:12px;padding:1.4rem 1.6rem;margin-top:1.4rem;font-size:.95rem}
+  .exclusive b{color:var(--accent)}
+
+  /* Leaky bucket CTA */
+  .bucket{background:linear-gradient(135deg,#1a1a2e,#0f3460);border:1px solid var(--blue);border-radius:12px;padding:2.2rem}
+  .bucket h2{margin-bottom:.6rem}
+  .bucket p{color:#c8d1dc;max-width:680px;margin:0 0 1rem}
+  .bucket p b{color:#fff}
+
+  /* Sign-off */
+  /* Receipts */
+  .receipts{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:1.2rem}
+  .receipt{background:#0d1117;border:1px solid #1e6e58;border-radius:10px;padding:1rem 1.2rem;font-size:.84rem}
+  .receipt .q{font-family:ui-monospace,Menlo,monospace;color:#5eead4;font-size:.8rem;margin-bottom:.6rem}
+  .receipt .names{color:#c8e6dd;line-height:1.7}
+  .receipt .names b{color:#fff}
+  .receipt .verdict{margin-top:.7rem;padding-top:.6rem;border-top:1px dashed #1e6e58;color:#ff8a8a;font-weight:700;font-size:.82rem}
+  .receipt-kicker{margin-top:1rem;font-size:.88rem;color:#c8e6dd;border-left:3px solid #5eead4;padding-left:.9rem}
+  .receipt-kicker b{color:#fff}
+  .signoff{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem 1.8rem;margin-top:2.4rem;font-size:.95rem}
+  .signoff b{color:var(--text)}
+  .signoff .sig{margin-top:.8rem;color:var(--muted)}
+
+  footer{padding:2.2rem 0 3rem;border-top:1px solid #21262d;color:var(--muted);font-size:.82rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+  .small{font-size:.75rem;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="spark">⚡</span> Powered by <a href="https://aivoicetech.io" target="_blank" rel="noopener">AIVoiceTech.io</a></div>
+    <div class="prepared">Prepared by <b>Robert Acheson</b>, AI Voice Tech &nbsp;·&nbsp; Prepared for <b>Caleb Green</b>, CG Roofing &amp; Waterproofing, LLC</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-text">
+      <div class="eyebrow">AI Search Visibility Report · June 2026 · Free — keep the files either way</div>
+      <h1>Caleb — when a homeowner asks ChatGPT for the best roofer in Jacksonville, <span class="hl">the answer isn't CG Roofing.</span> Yet.</h1>
+      <p class="lede">Your crews earned a <b>top-1% BuildZoom score out of 191,428 Florida contractors</b>. ChatGPT has no idea. We found the six reasons why, built the fixes, and put the files in a folder with your name on it. <b>Keep them whether we ever talk or not.</b></p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://calendly.com/robert-salestransformationgroup" target="_blank" rel="noopener">Book a 15-Minute Walkthrough</a>
+        <a class="btn btn-ghost" href="#files">Grab Your Files ↓</a>
+      </div>
+      <p class="small" style="margin-top:.7rem">Pick any slot that works — or just email <a href="mailto:rob@aivoicetech.com?subject=CG%20Roofing%20report">rob@aivoicetech.com</a>. On the walkthrough I'll show you exactly who AI names in your three metros today — nobody owns those slots yet, which is exactly the point — and which two fixes to do first, useful whether you hire us or not.</p>
+    </div>
+    <div class="score-wrap">
+      <div class="score-circle">
+        <div class="big">31</div>
+        <div class="sub">AI Visibility<br>Score / 100</div>
+      </div>
+      <div class="score-tier">Critical — AI Invisible</div>
+    </div>
+  </div>
+
+  <!-- CHALLENGE / RECEIPT -->
+  <div class="challenge">
+    <h3>The receipts — we ran the searches on June 10, 2026</h3>
+    <p>We asked AI-powered search the question your next customer asks. Here's who got named in each of your metros:</p>
+
+    <div class="receipts">
+      <div class="receipt">
+        <div class="q">"Best roofing company in Jacksonville, FL?"</div>
+        <div class="names"><b>Jack C. Wilson Roofing</b> · <b>Bigfoot Roofing &amp; Construction</b> · <b>Prime Roofing</b> · <b>Reliant Roofing</b> · Best Roof Company…</div>
+        <div class="verdict">CG Roofing &amp; Waterproofing — not mentioned</div>
+      </div>
+      <div class="receipt">
+        <div class="q">"Best roofing company in Orlando, FL?"</div>
+        <div class="names"><b>Total Roof Services</b> · <b>Quality Roofing Solutions</b> · <b>Bigfoot Roofing</b> · <b>Mid Florida Roofing</b> · Advantage Roofing…</div>
+        <div class="verdict">CG Roofing &amp; Waterproofing — not mentioned</div>
+      </div>
+      <div class="receipt">
+        <div class="q">"Best roofing company in Tampa, FL?"</div>
+        <div class="names"><b>Bill Shields Roofing</b> · <b>West Florida Roofing</b> · <b>RoofElite</b> · <b>Evans Roofing</b> · Freeman Roofing…</div>
+        <div class="verdict">CG Roofing &amp; Waterproofing — not mentioned</div>
+      </div>
+    </div>
+
+    <div class="receipt-kicker"><b>Notice Bigfoot Roofing showing up in two of your three metros?</b> That's the citation habit forming in real time — one company is starting to own the AI answer across Florida. This is exactly the window we're talking about.</div>
+
+    <p style="margin-top:1rem">Don't take our word for any of it. Pull out your phone and ask ChatGPT yourself:</p>
+    <div class="prompt">"Who's the best roofing company in Jacksonville, FL?"</div>
+    <p><b style="color:#5eead4">That answer box is the new first page of Google — and it only names a few companies.</b> Answers vary a little by engine and by day; what doesn't vary is who's missing.</p>
+  </div>
+
+  <!-- FUNNEL -->
+  <section id="funnel">
+    <h2>Your next customer doesn't start at Google anymore.</h2>
+    <p class="sub-h">Five years ago, a homeowner with a leak Googled "roofer near me" and called three companies. Now she asks ChatGPT a question and gets <b>one answer</b> — not ten blue links. If that answer isn't CG Roofing, you don't lose the job. <b>You never even knew it existed.</b></p>
+
+    <div class="funnel-box">
+      <div class="funnel-title">How a Roof Gets Sold in 2026</div>
+
+      <div class="zone-label">The AI answer layer — where the customer now starts</div>
+      <div class="ai-zone">
+        <div class="layer w100"><span class="lvl">💬 The Question</span><span class="note">"My roof is leaking after the storm — who do I call in Tampa?"</span></div>
+        <div class="layer w92"><span class="lvl">🏷️ The Names AI Gives</span><span class="note">Is CG Roofing one of them? <b>Today: no.</b></span></div>
+        <div class="layer w84"><span class="lvl">📌 The Source AI Links</span><span class="note">Does AI point to cgroofinggroup.com? <b>Today: no.</b></span></div>
+      </div>
+
+      <div class="handoff">— only then does the customer reach —</div>
+
+      <div class="zone-label">The part you've already invested in</div>
+      <div class="trad-zone">
+        <div class="layer w76"><span class="lvl">1 · Google searches</span><span class="note">"roof replacement jacksonville fl"</span></div>
+        <div class="layer w68"><span class="lvl">2 · Your website pages</span><span class="note">city &amp; service pages</span></div>
+        <div class="layer w60"><span class="lvl">3 · Calls &amp; estimate requests</span><span class="note">high-intent leads</span></div>
+        <div class="layer w52"><span class="lvl">4 · Signed jobs → revenue</span><span class="note">$12K avg residential · $45K+ commercial</span></div>
+      </div>
+
+      <div class="funnel-note">AI engines form habits. Once ChatGPT settles on "the" roofer for a market, it keeps naming them — and knocking out the incumbent is much harder than claiming the open slot.
+        <small>In our June 10 testing, no single roofer owns all three of your metros yet — but Bigfoot Roofing already shows up in two of them, and the PE-backed roll-ups buying up Florida roofing companies have full-time marketing departments. The slots are closing, not opening.</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY GEO -->
+  <section id="why">
+    <h2>This isn't a future trend — the shift is already measured</h2>
+    <div class="grid grid-3">
+      <div class="stat"><div class="v">+527%</div><div class="l">Year-over-year growth in AI-referred website traffic (2026 industry traffic studies)</div></div>
+      <div class="stat green"><div class="v">4.4×</div><div class="l">AI-referred visitors convert at 4.4x the rate of organic search visitors — they arrive pre-sold (Semrush/industry 2026 data)</div></div>
+      <div class="stat"><div class="v">−50%</div><div class="l">Gartner-projected drop in traditional search engine volume by 2028</div></div>
+    </div>
+    <p class="sub-h" style="margin-top:1.2rem">And here's the part that matters for you: fewer than 1 in 4 marketers is working on AI-search visibility yet — and in our research, <b>essentially none of them are Florida roofers</b>. That's the whole opportunity in one sentence.</p>
+  </section>
+
+  <!-- AUDIT -->
+  <section id="audit">
+    <h2>What we found at cgroofinggroup.com</h2>
+    <p class="sub-h">Six checks, weighted the way AI engines actually evaluate a contractor. Plain-English version below; the full findings are in your <a href="https://drive.google.com/file/d/1Vs2tj9MUHEp1PfzUM1DiCoYF5-Wqc9dl/view" target="_blank" rel="noopener">audit report</a>.</p>
+
+    <div class="cat t-critical"><div class="name">Can AI quote your website? <small>citability — 25% of score</small></div><div class="bar"><i style="width:24%"></i></div><div class="num">24/100</div></div>
+    <div class="cat t-poor"><div class="name">Do sites AI trusts ever mention you? <small>brand authority — 20%</small></div><div class="bar"><i style="width:41%"></i></div><div class="num">41/100</div></div>
+    <div class="cat t-poor"><div class="name">Does your site prove real experts do the work? <small>content &amp; E-E-A-T — 20%</small></div><div class="bar"><i style="width:38%"></i></div><div class="num">38/100</div></div>
+    <div class="cat t-moderate"><div class="name">Can AI crawlers reach and read your site? <small>technical — 15%</small></div><div class="bar"><i style="width:52%"></i></div><div class="num">52/100</div></div>
+    <div class="cat t-critical"><div class="name">Can AI even read your business identity? <small>structured data — 10%</small></div><div class="bar"><i style="width:12%"></i></div><div class="num">12/100</div></div>
+    <div class="cat t-critical"><div class="name">Are you tuned for each AI platform? <small>ChatGPT vs Google AI vs Perplexity — 10%</small></div><div class="bar"><i style="width:18%"></i></div><div class="num">18/100</div></div>
+
+    <div class="callout"><b>Your worst score — 12/100 — is also your cheapest fix, and you can verify it yourself.</b> Run cgroofinggroup.com through Google's free checker at <a href="https://validator.schema.org" target="_blank" rel="noopener">validator.schema.org</a> — it comes back essentially empty. That's your business identity (license, certifications, service areas, reviews) in a format machines can't read. Think of it like a permit packet: the inspector can't approve what isn't in the file. The fix is copy-paste code we already wrote — file #3 in your folder; your web person deploys it in an afternoon.</div>
+
+    <p class="small" style="margin-top:.8rem">Scores marked from this initial scan use publicly accessible signals; items needing a full crawl (exact robots.txt rules, page-level code, site speed) get verified — and exact keyword demand and competitor citation data get pulled live — when we onboard. Numbers can move a few points in either direction.</p>
+  </section>
+
+  <!-- STRENGTHS -->
+  <section id="strengths">
+    <h2>The good news: you already earned the hard part</h2>
+    <p class="sub-h">AI engines reward verifiable authority. CG Roofing has it — it's just not packaged in a form machines can read. <b>That's a packaging problem, not a reputation problem.</b> Packaging problems are fast to fix.</p>
+    <ul class="proof">
+      <li><b>BuildZoom score 133</b> — top 1% of 191,428 licensed Florida contractors (<a href="https://www.buildzoom.com/contractor/cg-roofing-group-fl" target="_blank" rel="noopener">verify</a>)</li>
+      <li><b>GAF-certified</b> residential roofing contractor (<a href="https://www.gaf.com/en-us/roofing-contractors/residential/usa/fl/jacksonville/cg-roofing-group-llc-1115406" target="_blank" rel="noopener">verify</a>)</li>
+      <li><b>BBB business profile</b> established (<a href="https://www.bbb.org/us/fl/jacksonville/profile/roofing-contractors/cg-roofing-group-llc-0403-236017548" target="_blank" rel="noopener">verify</a>)</li>
+      <li><b>5-star customer rating</b> · licensed, bonded &amp; insured (<a href="https://www.cgroofinggroup.com/reviews.html" target="_blank" rel="noopener">their words, not ours</a>)</li>
+      <li><b>Three major metros</b> — Jacksonville, Orlando, Tampa — residential, commercial, multifamily &amp; new construction</li>
+    </ul>
+    <p class="sub-h" style="margin-top:.6rem">Years of reputation, invisible to the machine that's starting to decide who gets the phone call. Fixable in an afternoon — the fix is sitting in your folder.</p>
+  </section>
+
+  <!-- DELIVERABLES -->
+  <section id="files">
+    <h2>Your files — already built, already yours</h2>
+    <p class="sub-h">Six files, generated for CG Roofing specifically. Five are yours with no strings attached — use them with us, with your web person, or on your own. The sixth is our proposal. That's the string, plainly labeled.</p>
+
+    <div class="file-guide"><b>Short on time?</b> Open the <b>Audit Report</b> first — ten minutes, plain English. Then forward the <b>Website Code Package</b> to whoever runs your site with the words "paste this in." Those two alone move your score.</div>
+
+    <div class="grid grid-2">
+      <a class="asset" href="https://drive.google.com/file/d/1Vs2tj9MUHEp1PfzUM1DiCoYF5-Wqc9dl/view" target="_blank" rel="noopener"><span class="ico">📊</span><span><h3>AI Visibility Audit Report</h3><p>Six-category baseline, what each finding means, and a prioritized 7-step fix list.</p></span><span class="open">Open →</span></a>
+      <a class="asset" href="https://docs.google.com/spreadsheets/d/1jFfOZGuTYOmwy1kL4ti88lntVTPNYlLBy3h2Eo-RRMM/edit" target="_blank" rel="noopener"><span class="ico">📈</span><span><h3>Revenue Opportunity Model <small>(live spreadsheet)</small></h3><p>The money math per metro &amp; service line. Change any input — close rate, job value — and it recalculates.</p></span><span class="open">Open →</span></a>
+      <a class="asset" href="https://drive.google.com/file/d/1Hg7UpThtXX_G9dAG_SrT9oRT9B4BkcPy/view" target="_blank" rel="noopener"><span class="ico">🧩</span><span><h3>Website Code Package <small>(JSON-LD schema — 5 blocks)</small></h3><p>Copy-paste code that makes your license, certifications, and services machine-readable. Your web person pastes it in an afternoon.</p></span><span class="open">Open →</span></a>
+      <a class="asset" href="https://drive.google.com/file/d/1Kz5kDTppiWwCjLT_YxXwmSlKN6RsD-G7/view" target="_blank" rel="noopener"><span class="ico">🤖</span><span><h3>Your AI Crawler Map <small>(llms.txt — ready to publish)</small></h3><p>An emerging file format AI crawlers are starting to read — it tells them what your company does and where. Publish at cgroofinggroup.com/llms.txt.</p></span><span class="open">Open →</span></a>
+      <a class="asset" href="https://drive.google.com/file/d/1MqZ72yCc6RXRp_BOmY3fz6y0-lXraZ-h/view" target="_blank" rel="noopener"><span class="ico">✍️</span><span><h3>Page Rewrites — Intros + FAQs</h3><p>Copy-paste page introductions and FAQ answers written so AI engines can quote them word-for-word.</p></span><span class="open">Open →</span></a>
+      <a class="asset" href="https://drive.google.com/file/d/1Lv1RgzSFInH9sZMSHHJ0T8XVp-eH4ybh/view" target="_blank" rel="noopener"><span class="ico">📋</span><span><h3>Our Proposal <small>(the plainly-labeled string)</small></h3><p>If you'd rather have it done for you: tiers, timelines, and the ROI math.</p></span><span class="open">Open →</span></a>
+    </div>
+  </section>
+
+  <!-- OPPORTUNITY -->
+  <section id="opportunity">
+    <h2>What fixing this is worth</h2>
+    <p class="sub-h">We modeled Year 1 across your three metros: <b>~22,600 high-intent roofing searches a month</b>, you capture a sliver of them through AI answers — about 25 leads a month by month 12 — at industry close rates and your real job values.</p>
+    <div class="opp">
+      <div class="nums">
+        <div class="v">~$780K<span style="font-size:1rem;color:var(--muted)">/yr</span></div>
+        <div class="l">Modeled value of the AI channel at the month-12 run rate ($65K/mo)</div>
+        <div class="v" style="font-size:1.8rem;margin-top:.8rem">25<span style="font-size:1rem;color:var(--muted)"> leads/mo</span></div>
+        <div class="l">A 0.11% capture rate of monthly high-intent searches — about 1 in 900. Not a moonshot number.</div>
+      </div>
+      <div style="flex:1 1 320px">
+        <ul>
+          <li><b>Residential:</b> 22 leads/mo modeled → $35K/mo ("lead" = an estimate request, not a tire-kicker; close rates are stated inline in the sheet)</li>
+          <li><b>Commercial &amp; multifamily:</b> 3 leads/mo modeled → $30K/mo — and yes, commercial cycles run months, so count this as pipeline, not month-one cash</li>
+          <li><b>Ramp, not a cliff:</b> figure roughly a third of run rate by month 3, two-thirds by month 6, full by month 12</li>
+          <li>Search volumes are planning estimates — exact, per-keyword demand gets pulled live (DataForSEO) when we start</li>
+          <li><b>Attribution, up front:</b> AI-sourced leads get tracked with a dedicated tracking number, "how did you hear" intake, and referral-source analytics — not vibes</li>
+        </ul>
+        <p style="margin-top:1rem"><a class="btn btn-ghost" href="https://docs.google.com/spreadsheets/d/1jFfOZGuTYOmwy1kL4ti88lntVTPNYlLBy3h2Eo-RRMM/edit" target="_blank" rel="noopener">Open the live model — change the inputs yourself →</a></p>
+      </div>
+    </div>
+
+    <div class="discount">
+      You don't believe a consultant's spreadsheet, and you shouldn't. So cut our number in half. Then cut it in half again. <b>That's still ~$195K a year — about 16 extra roofs</b> — from a channel your competitors haven't touched. And really it only takes one: <b>a single $45K commercial job that starts as an AI answer pays for an entire year of this work, several times over.</b>
+      <br><br>
+      And since you're already doing the math: <b>the work runs $2,500–$7,500/month depending on how many metros you want locked up</b> — the full breakdown is in the proposal, no call required to see the price. At the middle tier, that's a cost per signed job of roughly $1,400 if the model holds, and about $5,500 if it performs at a quarter of model. Your current cost per signed job from paid leads is probably north of both.
+    </div>
+
+    <div class="exclusive">
+      <b>One roofer per metro.</b> We can't make two companies "the answer" to the same question — so we don't try. Jacksonville, Orlando, and Tampa are each open as of June 10, 2026. If another roofer engages us first in any of them, that metro closes and we'll tell you so.
+      <br><br>
+      <span class="small">And straight up: you'd be our flagship roofing client in Florida. That's exactly why the files are free, the model is editable, and the price is on the page — judge us by the work in your folder, not by claims about clients we don't name.</span>
+    </div>
+
+    <p class="sub-h" style="margin-top:1.4rem"><b>Bottom line:</b> fixing the issues in this report increases your high-intent lead count and your revenue. Somebody is going to be the roofer ChatGPT recommends in Jacksonville, Orlando, and Tampa. The slot is open today. It won't be open forever.</p>
+    <a class="btn btn-primary" href="https://calendly.com/robert-salestransformationgroup" target="_blank" rel="noopener">Book the 15-Minute Walkthrough</a>
+  </section>
+
+  <!-- LEAKY BUCKET -->
+  <section>
+    <div class="bucket">
+      <h2>One warning before you go fix your AI visibility</h2>
+      <p>There's no point making the phone ring more if nobody picks it up. <b>Most customers hire the first company that responds</b> — and the average roofing company misses about 1 in 4 calls (after-hours, on a roof, during a storm surge — exactly when the urgent, high-ticket calls come in). At your $12K average job, <b>one missed replacement call a month is $144K a year walking to the next roofer on the list.</b></p>
+      <p>That's the other thing we build at AI Voice Tech: a 24/7 AI receptionist and website agent that answer every call and every visitor instantly, qualify them, and book the estimate while your competitor's phone goes to voicemail. <b>The visibility work pays off over months. This one pays off in days.</b></p>
+      <a class="btn btn-primary" href="https://calendly.com/robert-salestransformationgroup" target="_blank" rel="noopener">Book the walkthrough — I'll play you a 60-second recording of it booking a roof-leak estimate</a>
+      <p class="small" style="margin-top:.8rem">Or see it yourself at <a href="https://aivoicetech.io" target="_blank" rel="noopener" style="color:#9ecbff">AIVoiceTech.io</a></p>
+    </div>
+  </section>
+
+  <!-- SIGN-OFF -->
+  <div class="signoff">
+    <p><b>Caleb —</b> I built this because a top-1% BuildZoom score deserves better than being invisible to the machine that's starting to decide who gets the call. The files are yours either way. If you want the 15 minutes, I'll show you exactly who AI names in your markets today and the two fixes I'd do first.</p>
+    <p class="sig">— Rob Acheson · AI Voice Tech · <a href="https://calendly.com/robert-salestransformationgroup" target="_blank" rel="noopener">grab 15 minutes</a> · <a href="mailto:rob@aivoicetech.com">rob@aivoicetech.com</a><br>
+    <span class="small">I answer my own email. (For now — that's sort of the point of the product.)</span></p>
+  </div>
+
+  <footer>
+    <div>
+      <b style="color:var(--text)">Prepared by Robert Acheson</b> · AI Voice Tech<br>
+      Prepared for Caleb Green · CG Roofing &amp; Waterproofing, LLC · June 10, 2026
+    </div>
+    <div style="text-align:right">
+      ⚡ Powered by <a href="https://aivoicetech.io" target="_blank" rel="noopener">AIVoiceTech.io</a><br>
+      <span class="small">Market statistics: published 2026 industry figures, sources noted inline. Demand &amp; revenue figures are modeled estimates — all assumptions visible and editable in the live sheet.</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+"GEO OPPORTUNITY MODEL — CG ROOFING & WATERPROOFING, LLC"
+Prepared by Robert Acheson — AI Voice Tech — for Caleb Green — June 2026
+Modeled Year-1 revenue from AI-search visibility (GEO). Adjust any yellow input — formulas recalculate.
+
+Market / Service Line,Segment,Est. Monthly High-Intent Searches*,Current AI Visibility,Target AI-Sourced Leads /mo (by Mo. 12),Close Rate,Avg Job Value,Est. Monthly Revenue,Est. Annual Revenue,,Segment,Leads /mo,Revenue /mo,Revenue /yr,Avg Job Value
+Jacksonville — Residential Replacement,RES,2900,0% (not cited),3,0.25,12000,=E6*F6*G6,=H6*12,,ALL,=SUM(E6:E14),=SUM(H6:H14),=SUM(I6:I14),=AVERAGE(G6:G14)
+Jacksonville — Roof Repair / Storm,RES,3600,0% (not cited),5,0.3,1800,=E7*F7*G7,=H7*12,,RES,"=SUMIF($B$6:$B$14,K7,E6:E14)","=SUMIF($B$6:$B$14,K7,H6:H14)","=SUMIF($B$6:$B$14,K7,I6:I14)","=AVERAGEIF($B$6:$B$14,K7,G6:G14)"
+Jacksonville — Commercial / Multifamily,COM,480,0% (not cited),1,0.2,45000,=E8*F8*G8,=H8*12,,COM,"=SUMIF($B$6:$B$14,K8,E6:E14)","=SUMIF($B$6:$B$14,K8,H6:H14)","=SUMIF($B$6:$B$14,K8,I6:I14)","=AVERAGEIF($B$6:$B$14,K8,G6:G14)"
+Orlando — Residential Replacement,RES,3400,0% (not cited),3,0.25,12500,=E9*F9*G9,=H9*12
+Orlando — Roof Repair / Storm,RES,4100,0% (not cited),4,0.3,1800,=E10*F10*G10,=H10*12
+Orlando — Commercial / Multifamily,COM,520,0% (not cited),1,0.2,45000,=E11*F11*G11,=H11*12
+Tampa — Residential Replacement,RES,3100,0% (not cited),3,0.25,13000,=E12*F12*G12,=H12*12
+Tampa — Roof Repair / Storm,RES,3900,0% (not cited),4,0.3,1800,=E13*F13*G13,=H13*12
+Tampa — Commercial / MF / New Construction,COM,610,0% (not cited),1,0.2,60000,=E14*F14*G14,=H14*12
+TOTAL:,,=SUM(C6:C14),,=SUM(E6:E14),,,=SUM(H6:H14),=SUM(I6:I14)
+
+"* Search-demand figures are planning estimates for high-intent roofing queries per metro. Exact volumes, keyword difficulty, and competitor AI-citation share are pulled live via the DataForSEO integration during onboarding."
+Close rates and job values are conservative industry figures — replace with CG Roofing actuals to tighten the model.
+
+
+FULL CAPABILITY DELIVERABLES — GENERATED FOR CG ROOFING (CLICK TO OPEN)
+Deliverable,What it does,Status,Link
+GEO Visibility Audit Report,6-category baseline score (31/100) + prioritized action plan,Delivered,"=HYPERLINK(""https://drive.google.com/file/d/1Vs2tj9MUHEp1PfzUM1DiCoYF5-Wqc9dl/view"",""Open audit report"")"
+GEO Growth Proposal,"Engagement tiers, ROI math, first-mover case",Delivered,"=HYPERLINK(""https://drive.google.com/file/d/1Lv1RgzSFInH9sZMSHHJ0T8XVp-eH4ybh/view"",""Open proposal"")"
+JSON-LD Schema Package,"5 production-ready blocks: RoofingContractor, Person (Caleb Green), Service, FAQPage, WebSite",Delivered,"=HYPERLINK(""https://drive.google.com/file/d/1Hg7UpThtXX_G9dAG_SrT9oRT9B4BkcPy/view"",""Open schema file"")"
+llms.txt,AI-crawler site map (emerging standard) ready to publish at cgroofinggroup.com/llms.txt,Delivered,"=HYPERLINK(""https://drive.google.com/file/d/1Kz5kDTppiWwCjLT_YxXwmSlKN6RsD-G7/view"",""Open llms.txt"")"
+Page Rewrites — Citable Intros + FAQs,Copy-paste content engineered for AI citation (134–167-word answer blocks),Delivered,"=HYPERLINK(""https://drive.google.com/file/d/1MqZ72yCc6RXRp_BOmY3fz6y0-lXraZ-h/view"",""Open rewrites"")"
+Prospect Folder (all files),Everything in one place,Delivered,"=HYPERLINK(""https://drive.google.com/drive/folders/1cOcyMFuuIuEv_459P7ZMD1EB08Qr5NE5"",""Open folder"")"
+
+ON-ENGAGEMENT CAPABILITIES (LIVE DATA — DATAFORSEO POWERED)
+Capability,What it adds
+Live keyword demand by metro,"Exact monthly search volume, CPC, and difficulty for every roofing query in Jax / Orlando / Tampa"
+Competitor AI-citation tracking,Which roofers ChatGPT / Perplexity / Google AI cite today for each money query — and how to displace them
+LLM Mentions monitoring,Monthly tracking of CG Roofing mentions inside AI answers as the program compounds
+Domain & backlink analytics,Authority gaps vs. the top-cited competitor in each market
+AI crawler access verification,Full robots.txt / server-log confirmation that all 14+ AI crawlers can read the site
+Monthly GEO re-score,Same 6-category audit re-run monthly — progress you can see
