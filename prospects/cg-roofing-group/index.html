@@ -136,6 +136,15 @@
   .bucket p b{color:#fff}
 
   /* Sign-off */
+  /* Receipts */
+  .receipts{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:1.2rem}
+  .receipt{background:#0d1117;border:1px solid #1e6e58;border-radius:10px;padding:1rem 1.2rem;font-size:.84rem}
+  .receipt .q{font-family:ui-monospace,Menlo,monospace;color:#5eead4;font-size:.8rem;margin-bottom:.6rem}
+  .receipt .names{color:#c8e6dd;line-height:1.7}
+  .receipt .names b{color:#fff}
+  .receipt .verdict{margin-top:.7rem;padding-top:.6rem;border-top:1px dashed #1e6e58;color:#ff8a8a;font-weight:700;font-size:.82rem}
+  .receipt-kicker{margin-top:1rem;font-size:.88rem;color:#c8e6dd;border-left:3px solid #5eead4;padding-left:.9rem}
+  .receipt-kicker b{color:#fff}
   .signoff{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem 1.8rem;margin-top:2.4rem;font-size:.95rem}
   .signoff b{color:var(--text)}
   .signoff .sig{margin-top:.8rem;color:var(--muted)}
@@ -165,7 +174,7 @@
         <a class="btn btn-primary" href="https://calendly.com/robert-salestransformationgroup" target="_blank" rel="noopener">Book a 15-Minute Walkthrough</a>
         <a class="btn btn-ghost" href="#files">Grab Your Files ↓</a>
       </div>
-      <p class="small" style="margin-top:.7rem">Pick any slot that works — or just email <a href="mailto:rob@boostuppayments.com?subject=CG%20Roofing%20report">rob@boostuppayments.com</a>. On the walkthrough I'll show you exactly who AI names in your three metros today — nobody owns those slots yet, which is exactly the point — and which two fixes to do first, useful whether you hire us or not.</p>
+      <p class="small" style="margin-top:.7rem">Pick any slot that works — or just email <a href="mailto:rob@aivoicetech.com?subject=CG%20Roofing%20report">rob@aivoicetech.com</a>. On the walkthrough I'll show you exactly who AI names in your three metros today — nobody owns those slots yet, which is exactly the point — and which two fixes to do first, useful whether you hire us or not.</p>
     </div>
     <div class="score-wrap">
       <div class="score-circle">
@@ -178,11 +187,32 @@
 
   <!-- CHALLENGE / RECEIPT -->
   <div class="challenge">
-    <h3>Don't take our word for it — 10-second test</h3>
-    <p>Pull out your phone right now and ask ChatGPT (or Perplexity, or Google):</p>
+    <h3>The receipts — we ran the searches on June 10, 2026</h3>
+    <p>We asked AI-powered search the question your next customer asks. Here's who got named in each of your metros:</p>
+
+    <div class="receipts">
+      <div class="receipt">
+        <div class="q">"Best roofing company in Jacksonville, FL?"</div>
+        <div class="names"><b>Jack C. Wilson Roofing</b> · <b>Bigfoot Roofing &amp; Construction</b> · <b>Prime Roofing</b> · <b>Reliant Roofing</b> · Best Roof Company…</div>
+        <div class="verdict">CG Roofing &amp; Waterproofing — not mentioned</div>
+      </div>
+      <div class="receipt">
+        <div class="q">"Best roofing company in Orlando, FL?"</div>
+        <div class="names"><b>Total Roof Services</b> · <b>Quality Roofing Solutions</b> · <b>Bigfoot Roofing</b> · <b>Mid Florida Roofing</b> · Advantage Roofing…</div>
+        <div class="verdict">CG Roofing &amp; Waterproofing — not mentioned</div>
+      </div>
+      <div class="receipt">
+        <div class="q">"Best roofing company in Tampa, FL?"</div>
+        <div class="names"><b>Bill Shields Roofing</b> · <b>West Florida Roofing</b> · <b>RoofElite</b> · <b>Evans Roofing</b> · Freeman Roofing…</div>
+        <div class="verdict">CG Roofing &amp; Waterproofing — not mentioned</div>
+      </div>
+    </div>
+
+    <div class="receipt-kicker"><b>Notice Bigfoot Roofing showing up in two of your three metros?</b> That's the citation habit forming in real time — one company is starting to own the AI answer across Florida. This is exactly the window we're talking about.</div>
+
+    <p style="margin-top:1rem">Don't take our word for any of it. Pull out your phone and ask ChatGPT yourself:</p>
     <div class="prompt">"Who's the best roofing company in Jacksonville, FL?"</div>
-    <p>See who gets named. Then try Orlando and Tampa. <b style="color:#5eead4">That answer box is the new first page of Google — and it only names a few companies.</b> This report is about getting CG Roofing into it before another roofer locks it up.</p>
-    <!-- TODO (Rob): paste real screenshots of the ChatGPT/Perplexity answers here before sending — receipts beat claims. -->
+    <p><b style="color:#5eead4">That answer box is the new first page of Google — and it only names a few companies.</b> Answers vary a little by engine and by day; what doesn't vary is who's missing.</p>
   </div>
 
   <!-- FUNNEL -->
@@ -211,7 +241,7 @@
       </div>
 
       <div class="funnel-note">AI engines form habits. Once ChatGPT settles on "the" roofer for a market, it keeps naming them — and knocking out the incumbent is much harder than claiming the open slot.
-        <small>In our testing this month, no roofer is consistently cited across your three metros — every one is an open slot today. And the PE-backed roll-ups buying up Florida roofing companies have full-time marketing departments. If anyone grabs those slots first, it's them.</small>
+        <small>In our June 10 testing, no single roofer owns all three of your metros yet — but Bigfoot Roofing already shows up in two of them, and the PE-backed roll-ups buying up Florida roofing companies have full-time marketing departments. The slots are closing, not opening.</small>
       </div>
     </div>
   </section>
@@ -328,7 +358,7 @@
   <!-- SIGN-OFF -->
   <div class="signoff">
     <p><b>Caleb —</b> I built this because a top-1% BuildZoom score deserves better than being invisible to the machine that's starting to decide who gets the call. The files are yours either way. If you want the 15 minutes, I'll show you exactly who AI names in your markets today and the two fixes I'd do first.</p>
-    <p class="sig">— Rob Acheson · AI Voice Tech · <a href="https://calendly.com/robert-salestransformationgroup" target="_blank" rel="noopener">grab 15 minutes</a> · <a href="mailto:rob@boostuppayments.com">rob@boostuppayments.com</a><br>
+    <p class="sig">— Rob Acheson · AI Voice Tech · <a href="https://calendly.com/robert-salestransformationgroup" target="_blank" rel="noopener">grab 15 minutes</a> · <a href="mailto:rob@aivoicetech.com">rob@aivoicetech.com</a><br>
     <span class="small">I answer my own email. (For now — that's sort of the point of the product.)</span></p>
   </div>
 
